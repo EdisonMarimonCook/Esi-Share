@@ -2,12 +2,14 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 #include "users.h"
 
 //void login();
 void sign_up();
 
-int main(){
+void User_Menu(){
+
     FILE *fuser;
     fuser = fopen("user_database.txt", "a+");
     if(fuser == NULL){
@@ -18,6 +20,7 @@ int main(){
     puts("Bienvenid@!");
 
     int num;   
+
     do{
 
         puts("Ponga 1 para hacer login o 2 para hacer Sign-up?");
@@ -27,6 +30,7 @@ int main(){
     }while(num != 1 && num != 2);
 
     switch(num){
+
        //case 1: login();
        //break;
 
@@ -35,9 +39,16 @@ int main(){
     }
 
     fclose(fuser);
-    return 0;
+
+}
+
+int main(){
     
-};
+    setlocale(LC_ALL, "spanish");
+    User_Menu();
+
+    return 0;    
+}
 
 void sign_up(){
 
@@ -60,18 +71,77 @@ void sign_up(){
         if (strlen(user1.User) > 6) {
             printf("El usuario debe tener 5 caracteres o menos. Intentalo de nuevo.\n");
         }
-
         
     }while(strlen(user1.User) > 6);
-    
-    if (fputs(user1.User, fuser) == EOF) {
-
-            printf("Error writing to file.\n");
-    }
 
     fflush(stdin);
+    
+    char line[100];
+    int i = 0;
 
-    printf("Tu usuario es %s\n", user1.User);
+    while (fgets(line, sizeof(line), fuser)) {
+        if (strstr(line, user1.User) != NULL) {
+            i = 1;
+        }
+    }
+
+    if(i == 0){
+        fseek(fuser, 0, SEEK_END);
+        fputs(user1.User, fuser);
+        printf("Tu usuario es: %s\n", user1.User);
+    }else{
+        printf("Usuario ya utilizado\n");
+    }
+
+    fseek(fuser, 0, SEEK_END);
+    int num_newlines = 0;
+    long int pos = ftell(fuser);  
+    char c;
+    char str[5];
+
+    while (pos > 0) {
+        pos--;
+        fseek(fuser, pos, SEEK_SET);
+        c = fgetc(fuser);
+
+        if (c == '\n') {
+            num_newlines++;
+
+            if (num_newlines == 5) {
+
+                
+                fread(str, sizeof(char), 4, fuser);
+                str[5] = '\0';
+
+                break;
+            }
+        }
+    }
+
+    int id = atoi(str);
+    id++;
+
+    sprintf(str, "%04d", id);
+    strcat(str, "-");
+    fseek(fuser, 0, SEEK_END);
+    num_newlines = 0;
+    pos = ftell(fuser);
+
+    while (pos > 0) {
+        pos--;
+        fseek(fuser, pos, SEEK_SET);
+        c = fgetc(fuser);
+        printf("%c", c);
+
+        if (c == '\n') {
+            num_newlines++;
+
+            if (num_newlines == 3) {
+                fprintf(fuser, "%s", str);
+                break;
+            }
+        }
+    }
 
     fclose(fuser);
 
