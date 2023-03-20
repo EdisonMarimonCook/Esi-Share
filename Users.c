@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -61,6 +60,19 @@ void sign_up(){
     }
 
     user user1;
+    char fullstring[85];
+
+    do{
+        printf("Introduzca su nombre completo (maximo 20 caracteres):\n");
+        fflush(stdin);
+
+        fgets(user1.Name_User, sizeof(user1.Name_User), stdin);
+
+        if (strlen(user1.Name_User) > 21) {
+            printf("El usuario debe tener 20 caracteres o menos. Intentalo de nuevo.\n");
+        }
+        
+    }while(strlen(user1.Name_User) > 21);
 
     do{
         printf("Introduzca el usuario que quieras utilizar (maximo 5 caracteres):\n");
@@ -74,77 +86,102 @@ void sign_up(){
         
     }while(strlen(user1.User) > 6);
 
+    do{
+        printf("Introduzca la contraseña que quieras utilizar (maximo 8 caracteres):\n");
+        fflush(stdin);
+
+        fgets(user1.Password, sizeof(user1.Password), stdin);
+
+        if (strlen(user1.Password) > 8) {
+            printf("La contraseña debe tener 8 caracteres o menos. Intentalo de nuevo.\n");
+        }
+        
+    }while(strlen(user1.Password) > 8);
+
     fflush(stdin);
     
     char line[100];
     int i = 0;
 
     while (fgets(line, sizeof(line), fuser)) {
-        if (strstr(line, user1.User) != NULL) {
+        if (strstr(line, user1.User) != NULL){
             i = 1;
         }
     }
 
     if(i == 0){
         fseek(fuser, 0, SEEK_END);
-        fputs(user1.User, fuser);
-        printf("Tu usuario es: %s\n", user1.User);
-    }else{
-        printf("Usuario ya utilizado\n");
-    }
+        int num_newlines = 0;
+        long int pos = ftell(fuser);  
+        char c;
+        char str[5];
 
-    fseek(fuser, 0, SEEK_END);
-    int num_newlines = 0;
-    long int pos = ftell(fuser);  
-    char c;
-    char str[5];
+        while (pos > 0) {
+            pos--;
+            fseek(fuser, pos, SEEK_SET);
+            c = fgetc(fuser);
 
-    while (pos > 0) {
-        pos--;
-        fseek(fuser, pos, SEEK_SET);
-        c = fgetc(fuser);
+            if (c == '\n' || SEEK_SET) {
+                num_newlines++;
 
-        if (c == '\n') {
-            num_newlines++;
-
-            if (num_newlines == 5) {
-
+                if (num_newlines == 4) {
                 
-                fread(str, sizeof(char), 4, fuser);
-                str[5] = '\0';
+                    fread(str, sizeof(char), 4, fuser);
+                    str[5] = '\0';
 
-                break;
+                    break;
+                }
             }
         }
-    }
 
-    int id = atoi(str);
-    id++;
+        int id = atoi(str);
+        id++;
 
-    sprintf(str, "%04d", id);
-    strcat(str, "-");
-    fseek(fuser, 0, SEEK_END);
-    num_newlines = 0;
-    pos = ftell(fuser);
+        fflush(stdin);
 
-    while (pos > 0) {
-        pos--;
-        fseek(fuser, pos, SEEK_SET);
+        fseek(fuser, 0, SEEK_END);        
+        sprintf(str, "%04d", id);
+        long long unsigned int j;
+
+        for(j = 0; j <= strlen(user1.Name_User); j++){
+            if(user1.Name_User[j] == '\n'){
+                user1.Name_User[j] = '\0';
+            }
+        }
+
+        for(j = 0; j <= strlen(user1.User); j++){
+            if(user1.User[j] == '\n'){
+                user1.User[j] = '\0';
+            }
+        }   
+
+        printf("Tu nombre completo es: %s\n", user1.Name_User);
+        printf("Tu nombre de usuario es: %s\n", user1.User);
+
+        strcpy(fullstring, str);
+        strcat(fullstring, "-");
+        strcat(fullstring, user1.Name_User);
+        strcat(fullstring, "-");
+        strcat(fullstring, "user");
+        strcat(fullstring, "-");
+        strcat(fullstring, user1.User);
+        strcat(fullstring, "-");
+        strcat(fullstring, user1.Password);
+        fprintf(fuser, "%s", fullstring);
+
+        fseek(fuser, -1, SEEK_END);
         c = fgetc(fuser);
-        printf("%c", c);
 
-        if (c == '\n') {
-            num_newlines++;
-
-            if (num_newlines == 3) {
-                fprintf(fuser, "%s", str);
-                break;
-            }
+        if(c != '\n'){
+            fseek(fuser, 0, SEEK_END);
+            fprintf(fuser, "\n");
         }
+
+    }else{
+        printf("Usuario o nombre completo ya utilizado\n");
     }
 
     fclose(fuser);
-
 }
 
 
