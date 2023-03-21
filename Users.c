@@ -22,7 +22,7 @@ void User_Menu(){
 
     do{
 
-        puts("Ponga 1 para hacer login o 2 para hacer Sign-up?");
+        puts("Ponga 1 para hacer login o 2 para hacer Sign-up");
         
         scanf("%d", &num);
 
