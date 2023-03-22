@@ -71,30 +71,32 @@ void eliminar_viaje(FILE *viajes_file){
     id_fichero=atoi(vector_temporal);  //La función atoi transforma los valores char del vector en un entero
 
 
-    //Comparación:
+     //Comparación:
     do{
         if(id==id_fichero){
             encontrado=1;
         }else{
-            aux='0';
             while(aux!='\n'){
                 aux=fgetc(viajes_file);
+                printf("%c", aux);
             }
             vaciar_vector(vector_temporal);
             for(i=0;aux!='-';i++){
                 aux=fgetc(viajes_file);
                 vector_temporal[i]=aux;
             }
+            printf("%s", vector_temporal);
             id_fichero=atoi(vector_temporal);
-            lineas;
         }
-    }while(lineas!=lineas_total&&encontrado==0);
+        lineas++;
+    }while(lineas<lineas_total&&encontrado==0);
 
-    if(encontrado==1){
+    if(id==id_fichero){
         printf("\nEl viaje ha sido encontrado");
     }else{
         printf("\nNo se ha encontrado el viaje en la base de datos");
     }
+
 
     //Borrar:*/
 }
