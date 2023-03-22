@@ -4,8 +4,8 @@
 #include <locale.h>
 #include "users.h"
 
-//void login();
 void sign_up();
+void login();
 
 void User_Menu(){
 
@@ -30,8 +30,8 @@ void User_Menu(){
 
     switch(num){
 
-       //case 1: login();
-       //break;
+       case 1: login();
+       break;
 
         case 2: sign_up();
         break;
@@ -100,7 +100,7 @@ void sign_up(){
 
     fflush(stdin);
     
-    char line[100];
+    char line[85];
     int i = 0;
 
     while (fgets(line, sizeof(line), fuser)) {
@@ -150,7 +150,7 @@ void sign_up(){
         }
 
         for(j = 0; j <= strlen(user1.User); j++){
-            if(user1.User[j] == '\n'){
+            if(user1.User[j] == '\n' || user1.User[j] == ' '){
                 user1.User[j] = '\0';
             }
         }   
@@ -185,13 +185,7 @@ void sign_up(){
 }
 
 
-/*void login(){
-
-    char *line;
-
-    puts("Ponga su usuario:");
-    char usuario_imput[6];
-    scanf("%s", usuario_imput);
+void login(){
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "r");
@@ -200,17 +194,114 @@ void sign_up(){
         exit(1);
     }
 
-    while (fgets(line, ***, fuser) != NULL) {
-        if (strstr(line, usuario_imput) != NULL) {
-            printf("%s", line);
+    char line[85];
+    char usuario_imput[10];
+    char contraseña_imput[9];
+    char nombre_entero[21];
+    int check = 0;
+    char c;
+    int num_guion = 0;
+    char newline[20];
+
+    do{
+
+        puts("Ponga su usuario:");
+        scanf("%s", usuario_imput);
+
+            if(strlen(usuario_imput) > 5){
+                puts("Escriba un nombre de usuario que sea menos o igual que 5 caracteres.");
+            }
+
+    }while(strlen(usuario_imput) > 5);
+
+    fflush(stdin);
+
+    while (fgets(line, sizeof(line), fuser) != NULL) {
+        num_guion = 0;
+            for(int i = strlen(line); i >= 0; i--){
+                c = line[i];
+                if(c == '-'){
+                    num_guion++;
+                    if(num_guion == 2){
+                        strcpy(newline, &line[i+1]); 
+                        for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                            c = newline[z];
+                            if(c == '-'){
+                                newline[z] = '\0';
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        if (strstr(newline, usuario_imput) != NULL) {
+            check = 1;
+            break;
         }
-        else{
-            puts("Usuario no encontrado.");
+    }
+    
+    if(check == 0){
+        puts("Usuario no encontrado.");
+        User_Menu();
+
+    }else{
+        
+        do{
+            puts("Ponga su contraseña: ");
+            scanf("%s", contraseña_imput);
+
+                if(strlen(contraseña_imput) > 8){
+                    puts("Escriba una contraseña que sea menos o igual que 8 caracteres.");
+                }
+
+        }while(strlen(contraseña_imput) > 8);
+
+        for(int i = strlen(line); i >= 0; i--){
+            newline[0] = '\0';
+            c = line[i];
+            if(c == '-'){    
+                strcpy(newline, &line[i+1]);
+                break; 
+            }
+        }
+
+        check = 0;
+
+        if (strstr(newline, contraseña_imput) != NULL) {
+            
+            for(long long unsigned int i = 0; i <= strlen(line); i++){
+                c = line[i];
+                if(c == '-'){
+                    strcpy(nombre_entero, &line[i+1]); 
+                    for(long long unsigned int z = 0; z <= strlen(nombre_entero); z++){
+                        c = nombre_entero[z];
+                        if(c == '-'){
+                            nombre_entero[z] = '\0';
+                            check = 1;
+                            break;
+                        }
+                    }
+                }
+
+                if(check == 1){
+                    break;
+                }
+            }
+
+            User_Menu_Opciones(nombre_entero);
+
+        }else{
+            puts("Contraseña incorrecta.");
+            User_Menu();
         }
     }
 
-
     fclose(fuser);
-}*/
+}
 
+void User_Menu_Opciones(char nombre_entero[]){
+    
+    printf("Bienvenid@ %s", nombre_entero);
 
+}

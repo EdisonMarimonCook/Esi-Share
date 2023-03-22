@@ -1,7 +1,6 @@
 #ifndef USERS_H
 #define USERS_H
 
-
 typedef struct {
 
     int Id_Users[5];
@@ -14,6 +13,7 @@ typedef struct {
 }user;
 
 void User_Menu();
+void User_Menu_Opciones();
 void Admin();
 void Vehiculos();
 void Viajes();
