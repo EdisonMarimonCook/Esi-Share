@@ -12,14 +12,6 @@ void subir_viaje(FILE *viajes_file){
     fgets(v.Id_mat, sizeof(char), stdin); PROBLEMA. No te pide escribir la cadena de caracteres*/
 }
 
-int contar (int n){     //arreglar que no cuenta 000001 como 6 dígitos
-    int res=0;
-    while(n>0){
-        n/=10;
-        res++;
-    }
-    return res;
-}
 
 void vaciar_vector (char vector[]){
 
@@ -32,6 +24,7 @@ void vaciar_vector (char vector[]){
         vector[i]='\0';
     }
 }
+
 
 void eliminar_viaje(FILE *viajes_file){
 
@@ -52,13 +45,6 @@ void eliminar_viaje(FILE *viajes_file){
     //Creo una variable para el ID:
     printf("\n\nIntroduzca el ID del viaje a borrar: ");
     scanf("%d", &id);
-
-
-    /*//Comprobación de que el ID dado es válido en número de dígitos: ##################NO FUNCIONA BN, EJ:000001==1#################
-    while(contar(id)!=6){
-        printf("ID inválido, el ID debe de contener 6 dígitos, por favor inténtelo de nuevo: ");
-        scanf("%d", &id);
-    }*/
 
 
     //Crear ID obtenida del fichero:
@@ -101,6 +87,7 @@ void eliminar_viaje(FILE *viajes_file){
     //Borrar:*/
 }
 
+
 void modificar_viaje(FILE *viajes_file){
     char c;
     printf("¿Qué viaje desea modificar?\n\n");
@@ -110,6 +97,7 @@ void modificar_viaje(FILE *viajes_file){
         printf("%c", c);
     }while(c!=EOF);
 }
+
 
 void menu_viajes(){
 
@@ -177,6 +165,7 @@ void menu_viajes(){
         }
     }while(cont_menu==0);
 }
+
 
 int main(){
     setlocale(LC_ALL, "spanish");  //Función para poder escribir carácteres específicos del español
