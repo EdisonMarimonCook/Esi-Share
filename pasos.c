@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "PASOS.h"
 
 int main(){
+    FILE *pasos = {"pasos.txt", "w"};
 
     selector();
-
+    fclose(pasos);
 }
 void ida_recorrido(){
+    FILE *pasos = {"pasos.txt", "a+"};
     int a=0,i_plazaespana=1,i_victoria=1,i_RioSanPedro=1,i_Casem=1,i_Plaza=1,i_BahiaSur=1,i_HornosPunicos=1,i_Ardila=1,i_ParqueHuerta=1,i_calzada=1, i_hipodromo=1,i_Polila=1,i_bajoguia=1,i_Marquesado=1,i_pinarfranceses=1,i_Rana=1,i_Novo=1,i_Rotonda1=1,i_Minotauro=1,i_TrenesJerz=1,i_PuertoSantMaria=1,i_TrenesPuerto=1,i_Valdelagrana=1,i_Sudamerica=1,i_Plazatoros=1;
     char ubi1,ubi2,ubi3,ubi4,ubi5,ubi6;
     printf ("|      Selecione la su lugar de salida:        |\n");
@@ -239,15 +242,15 @@ void ida_recorrido(){
         system("cls");
         do{
             printf("5.Puerto Sant Maria(S/N)\n");
-            scanf("%c",&ubi4);
+            scanf("%c",&ubi5);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
+            if (ubi5=='N'||ubi5=='n'){
                 i_PuertoSantMaria=0;
                 break;
         }
-        if(ubi4!='N'&&ubi4!='S')
+        if(ubi5!='N'&&ubi5!='S')
            system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
+        }while(ubi5!='N'&&ubi5!='S');
         system("cls");
         break;
 
@@ -369,6 +372,7 @@ void ida_recorrido(){
 
     }
 }
+
 void vuelta_recorrido(){
     int a=0,v_puentenuevo=1,v_puenteviejo=1,v_RioSanPedro=1,v_Casem=1,v_Plaza=1,v_BahiaSur=1,v_HornosPunicos=1,v_Ardila=1,v_ParqueHuerta=1,v_calzada=1,v_hipodromo=1,v_Polila=1,v_bajoguia=1,v_Marquesado=1,v_pinarfranceses=1,v_Rana=1,v_Novo=1,v_Rotonda1=1,v_Minotauro=1,v_TrenesJerz=1,v_PuertoSantMaria=1,v_TrenesPuerto=1,v_Valdelagrana=1,v_Sudamerica=1,v_Plazatoros=1;
     char ubi1,ubi2,ubi3,ubi4,ubi5,ubi6;
@@ -730,51 +734,352 @@ void vuelta_recorrido(){
 
     }
 }
-void selector(){
-    int a,b,c;
-    printf(" ···       ··        ····      ····      ····   \n");
-    printf("··  ··    ····      ··  ··    ··  ··    ··  ··  \n");
-    printf("··  ··   ··  ··     ···       ··  ··     ···    \n");
-    printf("····    ········      ···     ··  ··      ···   \n");
-    printf("··     ··      ··   ··  ··    ··  ··    ··  ··  \n");
-    printf("··    ··        ··   ····      ····      ····   \n\n\n");
 
-    do{
-    printf("Bienvenido al apartado de viajes\n");
-    printf("¿Que desea hacer?\n");
-    printf("1.INTRODUCIR UN NUEVO VIAJE\n2.SELECCIONAR UN VIAJE YA EXIXTENTE\n");
-    scanf("%i",&a);
+void selector_camino(){
+    void selecionar_t(){
+    int selector;
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    printf("|   Seleccione el tipo de viaje:    |\n");
+    printf("|           1.IDA                   |\n");
+    printf("|          2.VUELTA                 |\n");
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selector);
     fflush(stdin);
     system("cls");
-    }while (a!=1 && a!=2);
-    if (a==1){
-        printf("¿Su viaje es de ida(1) o de vuelta(0)a la esi?\n");
-        scanf("%d", &b);
-        fflush(stdin);
-        do{
-            printf("Introduzca una opcion correcta\n");
-            scanf("%i",&b);
+    while (selector<1 || selector>2){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("|||||||||||||||||||||||||||||||||||||\n");
+        printf("|   Seleccione el tipo de viaje:    |\n");
+        printf("|           1.IDA                   |\n");
+        printf("|          2.VUELTA                 |\n");
+        printf("|||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selector);
+        system("cls");
+    }
+    if (selector==1)
+        selector_i();
+    else
+        selector_v();
+    }
+}
+
+void selector_i(){
+    int selectorc;
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    printf("|   Seleccione su lugar de SALIDA:  |\n");
+    printf("|              1.CADIZ              |\n");
+    printf("|           2.PUERTO REAL           |\n");
+    printf("|             3.JEREZ               |\n");
+    printf("|            4.CHICLANA             |\n");
+    printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+    printf("|      6.PUERTO DE SANTA MARIA      |\n");
+    printf("|          7.SAN FERNANDO           |\n");
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    system("cls");
+        while (selectorc<1 || selectorc>7){
+            printf("Introduzca una opcion correcta\n\n\n");
+            printf("|||||||||||||||||||||||||||||||||||||\n");
+            printf("|   Seleccione su lugar de SALIDA:  |\n");
+            printf("|              1.CADIZ              |\n");
+            printf("|           2.PUERTO REAL           |\n");
+            printf("|             3.JEREZ               |\n");
+            printf("|            4.CHICLANA             |\n");
+            printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+            printf("|      6.PUERTO DE SANTA MARIA      |\n");
+            printf("|          7.SAN FERNANDO           |\n");
+            printf("|||||||||||||||||||||||||||||||||||||\n");
+            scanf("%d",&selectorc);
             fflush(stdin);
             system("cls");
-
-        }while (b!=1 && b!=0);
-        if (b==1)
-            ida_recorrido;
-        else
-            vuelta_recorrido;
     }
-    else {
-        printf("Hacia donde desea ir\n");
-        printf ("|      1.Cadiz                                 |\n");
-        printf ("|      2.Puerto Real                           |\n");
-        printf ("|      3.Jerez                                 |\n");
-        printf ("|      4.Chiclana                              |\n");
-        printf ("|      5.Sanlucar de Barrameda                 |\n");
-        printf ("|      6.Puerto de Sant Maria                  |\n");
-        printf ("|      7.San Fernando                          |\n\n");
-        scanf ("%d",&c);
+    switch(selectorc){
+    case 1:
+        system("cls");
+        cadiz();
+        break;
+    case 2:
+        system("cls");
+        puertoreal();
+        break;
+    case 3:
+        system("cls");
+        jerez();
+        break;
+    case 4:
+        system("cls");
+        chiclana();
+        break;
+    case 5:
+        system("cls");
+        sanlucar();
+        break;
+    case 6:
+        system("cls");
+        puerto();
+        break;
+    case 7:
+        system("cls");
+        sanfer();
+        break;
+    }
+}
+
+void selector_v(){
+    int selectorc;
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    printf("|   Seleccione su lugar de VUELTA:  |\n");
+    printf("|              1.CADIZ              |\n");
+    printf("|           2.PUERTO REAL           |\n");
+    printf("|             3.JEREZ               |\n");
+    printf("|            4.CHICLANA             |\n");
+    printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+    printf("|      6.PUERTO DE SANTA MARIA      |\n");
+    printf("|          7.SAN FERNANDO           |\n");
+    printf("|||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>7){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||\n");
+        printf("|    Seleccione su lugar de VUELTA:  |\n");
+        printf("|              1.CADIZ               |\n");
+        printf("|           2.PUERTO REAL            |\n");
+        printf("|             3.JEREZ                |\n");
+        printf("|            4.CHICLANA              |\n");
+        printf("|     5.SAN LUCAR DE BARRAMEDA       |\n");
+        printf("|      6.PUERTO DE SANTA MARIA       |\n");
+        printf("|          7.SAN FERNANDO            |\n");
+        printf("||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
         fflush(stdin);
+        system("cls");
+    }
+    switch(selectorc){
+    case 1:
+        system("cls");
+        cadiz();
+        break;
+    case 2:
+        system("cls");
+        puertoreal();
+        break;
+    case 3:
+        system("cls");
+        jerez();
+        break;
+    case 4:
+        system("cls");
+        chiclana();
+        break;
+    case 5:
+        system("cls");
+        sanlucar();
+        break;
+    case 6:
+        system("cls");
+        puerto();
+        break;
+    case 7:
+        system("cls");
+        sanfer();
+        break;
+    }
+}
 
+void cadiz(){
+    int selectorc;
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|                 CADIZ                 |\n");
+    printf("|     Seleccione la parada deseada:     |\n");
+    printf("|            1.PLAZA ESPAÑA             |\n");
+    printf("|              2.HOSPITAL               |\n");
+    printf("|        3.BARRIADA RIO SAN PEDRO       |\n");
+    printf("|                4.CASEM                |\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>4){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|                 CADIZ                 |\n");
+        printf("|     Seleccione la parada deseada:     |\n");
+        printf("|            1.PLAZA ESPAÑA             |\n");
+        printf("|              2.HOSPITAL               |\n");
+        printf("|        3.BARRIADA RIO SAN PEDRO       |\n");
+        printf("|                4.CASEM                |\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
 
+void puertoreal(){
+    int selectorc;
+    printf("||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|             PUERTO REAL              |\n");
+    printf("|     Seleccione la parada deseada:    |\n");
+    printf("|         1.ESTACION DE TRENES         |\n");
+    printf("|           2.BURGER KING              |\n");
+    printf("|        3.LAGUNA DE LA MARROQUIA      |\n");
+    printf("|              4.CASEM                 |\n");
+    printf("||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>4){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|             PUERTO REAL              |\n");
+        printf("|     Seleccione la parada deseada:    |\n");
+        printf("|         1.ESTACION DE TRENES         |\n");
+        printf("|           2.BURGER KING              |\n");
+        printf("|        3.LAGUNA DE LA MARROQUIA      |\n");
+        printf("|              4.CASEM                 |\n");
+        printf("||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
+
+void jerez(){
+    int selectorc;
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|                  JEREZ                |\n");
+    printf("|     Seleccione la parada deseada:     |\n");
+    printf("|              1.MINOTAURO              |\n");
+    printf("|               2.ROTONDA               |\n");
+    printf("|          3.ESTACION DE TRENES         |\n");
+    printf("|         4.PUERTO DE SANTA MARIA       |\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>4){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|                 JEREZ                 |\n");
+        printf("|     Seleccione la parada deseada:     |\n");
+        printf("|              1.MINOTAURO              |\n");
+        printf("|               2.ROTONDA               |\n");
+        printf("|          3.ESTACION DE TRENES         |\n");
+        printf("|         4.PUERTO DE SANTA MARIA       |\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
+
+void chiclana(){
+    int selectorc;
+    printf("||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|               CHICLANA                 |\n");
+    printf("|    Seleccione la parada deseada:       |\n");
+    printf("|             1.MARQUESADO               |\n");
+    printf("|               2.EL NOVO                |\n");
+    printf("|              3.FRANCESES               |\n");
+    printf("|             4.LOS GALLOS               |\n");
+    printf("||||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>4){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|               CHICLANA                 |\n");
+        printf("|    Seleccione la parada deseada:       |\n");
+        printf("|             1.MARQUESADO               |\n");
+        printf("|               2.EL NOVO                |\n");
+        printf("|              3.FRANCESES               |\n");
+        printf("|             4.LOS GALLOS               |\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
+
+void sanlucar(){
+    int selectorc;
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|             SAN LUCAR DE BARRAMEDA              |\n");
+    printf("|          Seleccione la parada deseada:          |\n");
+    printf("|                   1.EL PALMAR                   |\n");
+    printf("|                  2.5ºCENTENARIO                 |\n");
+    printf("|                3.ROTONDA DEL TREN               |\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>3){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|             SAN LUCAR DE BARRAMEDA              |\n");
+        printf("|          Seleccione la parada deseada:          |\n");
+        printf("|                   1.EL PALMAR                   |\n");
+        printf("|              2.AVENIDA 5ºCENTENARIO             |\n");
+        printf("|                3.ROTONDA DEL TREN               |\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
+
+void puerto(){
+    int selectorc;
+    printf("||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|               PUERTO REAL              |\n");
+    printf("|     Seleccione la parada deseada:      |\n");
+    printf("|         1.ESTACION DE TRENES           |\n");
+    printf("|            2.VALDELAGRANA              |\n");
+    printf("|             3.SUDAMERICA               |\n");
+    printf("|            4.PLAZA DE TOROS            |\n");
+    printf("||||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>4){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|               PUERTO REAL              |\n");
+        printf("|     Seleccione la parada deseada:      |\n");
+        printf("|         1.ESTACION DE TRENES           |\n");
+        printf("|            2.VALDELAGRANA              |\n");
+        printf("|             3.SUDAMERICA               |\n");
+        printf("|            4.PLAZA DE TOROS            |\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
+    }
+}
+
+void sanfer(){
+    int selectorc;
+    printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|                    SAN FERNANDO                  |\n");
+    printf("|          Seleccione la parada deseada:           |\n");
+    printf("|                 1.PARQUE LA HUERTA               |\n");
+    printf("|                     2.ARDILA                     |\n");
+    printf("|                 3.HIRNOS PUNICOS                 |\n");
+    printf("|                    4.BAHIA SUR                   |\n");
+    printf("|                      5.PLAZA                     |\n");
+    printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selectorc);
+    fflush(stdin);
+    while (selectorc<1 || selectorc>5){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|                    SAN FERNANDO                  |\n");
+        printf("|          Seleccione la parada deseada:           |\n");
+        printf("|                 1.PARQUE LA HUERTA               |\n");
+        printf("|                     2.ARDILA                     |\n");
+        printf("|                 3.HIRNOS PUNICOS                 |\n");
+        printf("|                    4.BAHIA SUR                   |\n");
+        printf("|                      5.PLAZA                     |\n");
+        printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selectorc);
+        fflush(stdin);
+        system("cls");
     }
 }
