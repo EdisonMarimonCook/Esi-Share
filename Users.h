@@ -1,23 +1,17 @@
-#ifndef Usersh
-#define Usersh
+#ifndef USERS_H
+#define USERS_H
 
-int Users(text txt)
-
-typedef struct{
+typedef struct {
 
     int Id_Users[5];
     char Name_User[21];
     char Place[21];
-    bool User_Profile;
-    char User[6];
+    char User_Profile[14];
+    char User[10];
     char Password[9];
 
-}Users;
+}user;
 
-void User(char id);
-void Admin(char id);
-void Vehiculos(char id);
-void Viajes(char id);
-
+void User_Menu();
 
 #endif 
