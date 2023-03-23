@@ -5,8 +5,6 @@
     char Poblacion[21];   // localizacion por donde va a pasar el conductor
     }estruct_pasos;
 
-void ida_recorrido();
-void vuelta_recorrido();
-void selector_camino();
+void menu_pasos();
 
 #endif // PASOS_H

@@ -1,16 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <locale.h>
+#include <string.h>
 #include "PASOS.h"
 
 int main(){
-    FILE *pasos = {"pasos.txt", "w"};
-
-    selector();
+    FILE *pasos;
+    pasos = fopen("pasos.txt", "w");
+    if (pasos==NULL){
+        printf("NO ES POSIBLE HABRIR EL FICHERO");
+        exit(1);
+    }
     fclose(pasos);
+    menu_pasos();
 }
+
+void menu_pasos(){
+    int selector;
+    printf("|||||||||||||||||||||||||||||||\n");
+    printf("|   Seleccione una opcion:    |\n");
+    printf("|       1.CREAR VIAJE         |\n");
+    printf("|    2.SELECIONAR VIAJE       |\n");
+    printf("|||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selector);
+    fflush(stdin);
+    system("cls");
+    while (selector<1 || selector>2){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("|||||||||||||||||||||||||||||||\n");
+        printf("|   Seleccione una opcion:    |\n");
+        printf("|       1.CREAR VIAJE         |\n");
+        printf("|    2.SELECIONAR VIAJE       |\n");
+        printf("|||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selector);
+        system("cls");
+    }
+    if (selector==1)
+        CREAR_VIAJE();
+    else
+        selector_camino();
+}
+
+void CREAR_VIAJE(){
+    int selector;
+    printf("||||||||||||||||||||||||||||||||||||||\n");
+    printf("|       Seleccione una opcion:       |\n");
+    printf("|      1.VIAJE DE IDA(A LA ESI)      |\n");
+    printf("|    2.VIAJE DE VUELTA(DE LA ESI)    |\n");
+    printf("||||||||||||||||||||||||||||||||||||||\n");
+    scanf("%d",&selector);
+    fflush(stdin);
+    system("cls");
+    while (selector<1 || selector>2){
+        printf("Introduzca una opcion correcta\n\n\n");
+        printf("||||||||||||||||||||||||||||||||||||||\n");
+        printf("|       Seleccione una opcion:       |\n");
+        printf("|      1.VIAJE DE IDA(A LA ESI)      |\n");
+        printf("|    2.VIAJE DE VUELTA(DE LA ESI)    |\n");
+        printf("||||||||||||||||||||||||||||||||||||||\n");
+        scanf("%d",&selector);
+        system("cls");
+    }
+    if (selector==1)
+        ida_recorrido();
+    else
+        vuelta_recorrido();
+}
+
 void ida_recorrido(){
-    FILE *pasos = {"pasos.txt", "a+"};
+    FILE *pasos;
+    pasos= fopen("pasos.txt", "a+");
     int a=0,i_plazaespana=1,i_victoria=1,i_RioSanPedro=1,i_Casem=1,i_Plaza=1,i_BahiaSur=1,i_HornosPunicos=1,i_Ardila=1,i_ParqueHuerta=1,i_calzada=1, i_hipodromo=1,i_Polila=1,i_bajoguia=1,i_Marquesado=1,i_pinarfranceses=1,i_Rana=1,i_Novo=1,i_Rotonda1=1,i_Minotauro=1,i_TrenesJerz=1,i_PuertoSantMaria=1,i_TrenesPuerto=1,i_Valdelagrana=1,i_Sudamerica=1,i_Plazatoros=1;
     char ubi1,ubi2,ubi3,ubi4,ubi5,ubi6;
     printf ("|      Selecione la su lugar de salida:        |\n");
@@ -31,11 +91,12 @@ void ida_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Plaza España(S/N)\n");
+            printf("1.Plaza Espana(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='N'||ubi1!='n'){
                 i_plazaespana=0;
+                fputs(pasos,"Cadiz PlazaEspana");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
