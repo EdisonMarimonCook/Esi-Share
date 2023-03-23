@@ -5,13 +5,13 @@
 #include "viajes_header.h"
 #define N 100
 
-void subir_viaje(FILE *viajes_file){
+
+void subir_viaje(FILE *viajes_file){  //No sé xd
     estruct_viajes Id_m;
     printf("¡Bienvenido al creador de viajes de ESI Share!\n\nIntroduzca la matrícula del coche que vaya a utilizar: ");
     /*fflush(stdin);
     fgets(v.Id_mat, sizeof(char), stdin); PROBLEMA. No te pide escribir la cadena de caracteres*/
 }
-
 
 void vaciar_vector (char vector[]){
 
@@ -25,12 +25,106 @@ void vaciar_vector (char vector[]){
     }
 }
 
-
-void eliminar_viaje(FILE *viajes_file){
+void leer(char vector[], FILE *f){
 
     //Declaración de datos:
+    char aux;
+    int i;
+
+    //Leer vector hasta '-':
+    vaciar_vector(vector);
+    aux='0';
+    for(i=0;aux!='-';i++){
+        aux=fgetc(f);
+        if(aux!='-'){
+            vector[i]=aux;
+        }
+    }
+}
+
+void subir_a_fichero(estruct_viajes *v){
+
+    //Definición de datos:
+    FILE *f;
+    int lineas=0, i, j;
+    char vector[N], aux;
+
+
+    //Contar líneas del fichero:
+    if((f=fopen("viajes_file.txt","r"))==NULL){
+        //Error dado en el caso de no poder abrir el fichero:
+        printf("######################################################################\n");
+        printf("|Ha ocurrido un error a la hora de abrir el fichero <viajes_file.txt>|\n|    Por favor, inténtelo más tarde o consulte con mantenimiento     |\n");
+        printf("######################################################################\n\n");
+        exit(1);
+    }
+    while(!feof(f)){
+        fgets(vector,N,f);
+        lineas++;
+    }
+
+
+    //Volver al principio del fichero:
+    rewind(f);
+
+
+    //Crear vector dinámico dependiente del número de líneas de estruct_viajes:
+    v=(estruct_viajes*)malloc(lineas*sizeof(estruct_viajes));
+    if(v==NULL){
+        printf("No se ha podido reservar memoria\n");
+        exit(1);
+    }
+
+
+    //LLenar en cada estructura del vector:
+    for(j=0;!feof(f);j++){
+        leer(vector, f);
+        v[j].Id_viaje=atoi(vector);  //Id_viaje
+        printf("%d-", v[j].Id_viaje);
+        leer(vector, f);
+        strcpy(v[j].Id_mat, vector);  //Id_mat
+        printf("%s-", v[j].Id_mat);
+        leer(vector, f);
+        v[j].F_inic=atoi(vector);  //F_inic
+        printf("%d-", v[j].F_inic);
+        leer(vector, f);
+        v[j].H_inic=atoi(vector);  //H_inic
+        printf("%d-", v[j].H_inic);
+        leer(vector, f);
+        v[j].H_fin=atoi(vector);  //H_fin
+        printf("%d-", v[j].H_fin);
+        leer(vector, f);
+        v[j].Plazas_libre=atoi(vector);  //Plazas_libre
+        printf("%d-", v[j].Plazas_libre);
+        leer(vector, f);
+        v[j].Importe=atoi(vector);  //Importe
+        printf("%d-", v[j].Importe);
+        leer(vector, f);
+        strcpy(v[j].Estado,vector);  //Estado
+        printf("%s\n", v[j].Estado);
+    }
+    fclose(f);
+}
+
+
+void eliminar_viaje(FILE *viajes_file, estruct_viajes *v){
+
+    //Declaración de datos:
+    setlocale(LC_ALL, "spanish");
+    FILE *viajes_file_aux;
     char aux, vector_temporal[N];
-    int id=0, id_fichero=0, i, encontrado=0, lineas=1, lineas_total=0;
+    int id=0, id_fichero=0, id_aux=0, i, encontrado=0, lineas=0, lineas_total=0, cont=0;
+
+
+    //Abro el fichero viajes_file.txt:
+    viajes_file=fopen("viajes_file.txt", "a+");
+    if(viajes_file==NULL){
+        //Error dado en el caso de no poder abrir el fichero:
+        printf("######################################################################\n");
+        printf("|Ha ocurrido un error a la hora de abrir el fichero <viajes_file.txt>|\n|    Por favor, inténtelo más tarde o consulte con mantenimiento     |\n");
+        printf("######################################################################\n\n");
+        exit(1);
+    }
 
 
     //Enseña por pantalla todos los viajes guardados en el fichero:
@@ -38,7 +132,7 @@ void eliminar_viaje(FILE *viajes_file){
     while(!feof(viajes_file)){
         fgets(vector_temporal,N,viajes_file);
         printf("%s", vector_temporal);
-        lineas_total++;
+        lineas++;
     }
 
 
@@ -46,8 +140,16 @@ void eliminar_viaje(FILE *viajes_file){
     printf("\n\nIntroduzca el ID del viaje a borrar: ");
     scanf("%d", &id);
 
+    /*while(cont<=lineas||encontrado==1){
+        if(id==v[cont].Id_viaje){
+            encontrado=1;
+            printf("\nViaje encontrado");
+        }
+        cont++;
+    }*/
 
-    //Crear ID obtenida del fichero:
+
+    /*Crear ID obtenida del fichero:
     rewind(viajes_file); //Pone el puntero en la posición inicial del fichero
     vaciar_vector(vector_temporal);  //Quitamos la basura de este vector
     for(i=0;aux!='-';i++){
@@ -64,31 +166,72 @@ void eliminar_viaje(FILE *viajes_file){
         }else{
             while(aux!='\n'){
                 aux=fgetc(viajes_file);
-                printf("%c", aux);
             }
             vaciar_vector(vector_temporal);
             for(i=0;aux!='-';i++){
                 aux=fgetc(viajes_file);
                 vector_temporal[i]=aux;
             }
-            printf("%s", vector_temporal);
             id_fichero=atoi(vector_temporal);
         }
         lineas++;
     }while(lineas<lineas_total&&encontrado==0);
 
-    if(id==id_fichero){
-        printf("\nEl viaje ha sido encontrado");
-    }else{
+
+    if(id!=id_fichero){
         printf("\nNo se ha encontrado el viaje en la base de datos");
+    }else{
+        //Abrir un fichero auxiliar para introducir los datos:
+    viajes_file_aux=fopen("viajes_file_aux.txt", "w+");
+     if(viajes_file_aux==NULL){
+        //Error dado en el caso de no poder abrir el fichero:
+        printf("######################################################################\n");
+        printf("|Ha ocurrido un error a la hora de abrir el fichero <viajes_file_aux.txt>|\n|    Por favor, inténtelo más tarde o consulte con mantenimiento     |\n");
+        printf("######################################################################\n\n");
+        exit(1);
     }
 
 
-    //Borrar:*/
+    //Copiar contenido de viajes_file.txt en viajes_file_aux.txt menos la línea que se desea eliminar:
+    rewind(viajes_file);
+    while(aux!=EOF){
+         //FALTA PONER QUE NO COPIE LA LÍNEA QUE QUEREMOS BORRAR
+        vaciar_vector(vector_temporal);
+        for(i=0;aux!='-';i++){
+            aux=fgetc(viajes_file);
+            vector_temporal[i]=aux;
+        }
+        id_aux=atoi(vector_temporal);
+
+        if(id!=id_aux){
+            fputs(vector_temporal,viajes_file_aux);
+            while(aux!='\n'){
+                aux=fgetc(viajes_file);
+                fputc(aux,viajes_file_aux);
+            }
+        }else{
+            while(aux!='\n'){
+                aux=fgetc(viajes_file);
+            }
+        }
+    }
+
+
+    //Cierro los fichero para editar nombres y borrar cosas:
+    fclose(viajes_file);
+    fclose(viajes_file_aux);
+
+
+    //Borrar:
+    rename("viajes_file.txt","borrador.txt");
+    rename("viajes_file_aux.txt","viajes_file.txt");
+    remove("borrador.txt");
+    printf("\nEl viaje ha sido borrado con éxito");
+    }*/
 }
 
 
-void modificar_viaje(FILE *viajes_file){
+void modificar_viaje(FILE *viajes_file){  //No sé xd
     char c;
     printf("¿Qué viaje desea modificar?\n\n");
     //Enseña por pantalla todos los viajes guardados en el fichero:
@@ -102,9 +245,15 @@ void modificar_viaje(FILE *viajes_file){
 void menu_viajes(){
 
     //Declaración de datos:
+    setlocale(LC_ALL, "spanish");  //Función para poder escribir carácteres específicos del español
     int elect, cont_menu=0;
     FILE *viajes_file;
+    estruct_viajes *v;
     char res;
+
+
+    //Cargar datos a estructura:
+    subir_a_fichero(v);
 
 
     //Menú gráfico:
@@ -130,26 +279,16 @@ void menu_viajes(){
         system ("cls"); //Sirve para limpiar la pantalla
 
 
-        //Abro el fichero viajes_file.txt antes de elegir qué hacer con él para no tener que abrirlo en cada función:
-        viajes_file=fopen("viajes_file.txt", "a+");
-        if(viajes_file!=NULL){
-            switch (elect){
-                case 1: subir_viaje(viajes_file);
-                break;
-                case 2: eliminar_viaje(viajes_file);
-                break;
-                case 3: modificar_viaje(viajes_file);
-                break;
-                case 4: exit(1);
-            }
-        }else{
-            //Error dado en el caso de no poder abrir el fichero:
-            printf("######################################################################\n");
-            printf("|Ha ocurrido un error a la hora de abrir el fichero <viajes_file.txt>|\n|    Por favor, inténtelo más tarde o consulte con mantenimiento     |\n");
-            printf("######################################################################\n\n");
-            exit(1);
+        //Elección de función:
+        switch (elect){
+            case 1: subir_viaje(viajes_file);
+            break;
+            case 2: eliminar_viaje(viajes_file, v);
+            break;
+            case 3: modificar_viaje(viajes_file);
+            break;
+            case 4: exit(1);
         }
-        fclose(viajes_file);
 
 
         //Elección sobre continuación del bucle:
@@ -168,7 +307,6 @@ void menu_viajes(){
 
 
 int main(){
-    setlocale(LC_ALL, "spanish");  //Función para poder escribir carácteres específicos del español
     menu_viajes();
     return 0;
 }
