@@ -2,8 +2,8 @@
 
     #define VIAJES_h
     typedef struct{
-        int Id_viaje/*6 dígitos*/, Plazas_libre/*1 dígito*/, Importe, Estado/*1=Abierto, 2=Cerrado, 3=Iniciado, 4=Finalizado, 5=Anulado*/;
-        char Id_mat[8], F_inic[11], H_inic[6], H_fin[6];
+        int Id_viaje/*6 dÃ­gitos*/, Plazas_libre/*1 dÃ­gito*/, Importe, F_inic, H_inic, H_fin;
+        char Id_mat[8], Estado[15];
     }estruct_viajes;
 
     void menu_viajes();
