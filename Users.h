@@ -13,5 +13,6 @@ typedef struct {
 }user;
 
 void User_Menu();
+int getUserId();
 
 #endif 

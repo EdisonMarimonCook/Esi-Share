@@ -3,11 +3,13 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
-#include "users.h"
+#include "Users.h"
+#include "viajes_header.h"
+#include "Vehiculos_header.h"
 
-/*void Menu_Vehiculos();
-void Menu_Viajes();
-void Editar_Perfil();*/
+void User_Menu_Opciones_Usu();
+void Editar_Perfil();
+void Admin();
 void sign_up();
 void login();
 
@@ -319,13 +321,42 @@ void login(){
                         }
                     }
                 }
-
                 if(check == 1){
                     break;
                 }
             }
 
-            User_Menu_Opciones_Usu(nombre_entero);
+            newline[0] = '\0';
+            char check_user[] = "user";
+            while (fgets(line, sizeof(line), fuser) != NULL) {
+            num_guion = 0;
+                for(int i = strlen(line); i >= 0; i--){
+                    c = line[i];
+                    if(c == '-'){
+                        num_guion++;
+                        if(num_guion == 3){
+                            strcpy(newline, &line[i+1]); 
+                            for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                                c = newline[z];
+                                if(c == '-'){
+                                    newline[z] = '\0';
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+         
+            if(newline == check_user){
+
+                User_Menu_Opciones_Usu(nombre_entero);
+
+            }else{
+
+                Admin();
+
+            }
 
         }else{
             system("cls");
@@ -351,14 +382,14 @@ void User_Menu_Opciones_Usu(char nombre_entero[]){
     scanf("%d", &elec);
     system("cls");
     switch(elec){
-        /*case 1: Menu_Vehiculos();
+        case 1: menu_vehiculos();
         break;
 
-        case 2: Menu_Viajes();
+        case 2: menu_viajes();
         break;
 
         case 3: Editar_Perfil();
-        break;*/
+        break;
     }
 
 }
@@ -367,5 +398,65 @@ void Admin(){
     system("cls");
 
     puts("Eres admin");
+
+}
+
+void Editar_Perfil(){
+    puts("Aqui para editar tu perfil");
+
+}
+
+int getUserId(const char *usuario){
+
+    FILE *fuser;
+    fuser = fopen("user_database.txt", "r");
+
+    char line[85];
+    char user_id[10];
+    int user_num;
+    char newline[20];
+    int num_guion;
+    char c;
+    int check = 0;
+
+    while (fgets(line, sizeof(line), fuser) != NULL) {
+        num_guion = 0;
+        for(int i = strlen(line); i >= 0; i--){
+            c = line[i];
+            if(c == '-'){
+                num_guion++;
+                if(num_guion == 2){
+                    strcpy(newline, &line[i+1]); 
+                    for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                        c = newline[z];
+                        if(c == '-'){
+                            newline[z] = '\0';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (strstr(newline, usuario) != NULL) {
+            check = 1;
+            break;
+        }
+    }
+
+    if(check == 0){
+        int stuff = 235;
+        return stuff;
+
+    }else{
+
+        strcpy(user_id, line);
+
+        user_id[5] = '\0';  
+        user_num = atoi(user_id);
+
+        return user_num;
+
+    }
 
 }
