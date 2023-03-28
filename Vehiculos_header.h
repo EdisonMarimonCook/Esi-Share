@@ -7,5 +7,5 @@ typedef struct                              //Se define la estructura "estruct_v
     int Id_usuario, Num_plazas;             //Se definen las variables del número identificador de usuario (4 dígitos) y número de plazas del vehículo (1 dígito)
 } estruct_vehiculos;
 
-void menu_vehiculos();						//Se define la función que contendrá el menú del módulo de "Vehículos"
+void menu_vehiculos();						//Se define la función que contendrá el menú del módulo de "Vehículos" 
 #endif
