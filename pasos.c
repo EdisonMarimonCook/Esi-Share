@@ -6,13 +6,6 @@
 #include "PASOS.h"
 
 int main(){
-    FILE *pasos;
-    pasos = fopen("pasos.txt", "w");
-    if (pasos==NULL){
-        printf("NO ES POSIBLE HABRIR EL FICHERO");
-        exit(1);
-    }
-    fclose(pasos);
     menu_pasos();
 }
 
@@ -34,31 +27,32 @@ void menu_pasos(){
         printf("|    2.SELECIONAR VIAJE       |\n");
         printf("|||||||||||||||||||||||||||||||\n");
         scanf("%d",&selector);
+        fflush(stdin);
         system("cls");
     }
     if (selector==1)
         CREAR_VIAJE();
-    else
+    if (selector==2)
         selector_camino();
 }
 
-void CREAR_VIAJE(){
+int CREAR_VIAJE(){
     int selector;
-    printf("||||||||||||||||||||||||||||||||||||||\n");
-    printf("|       Seleccione una opcion:       |\n");
-    printf("|      1.VIAJE DE IDA(A LA ESI)      |\n");
-    printf("|    2.VIAJE DE VUELTA(DE LA ESI)    |\n");
-    printf("||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|       Seleccione un tipo de viaje:    |\n");
+    printf("|         1.VIAJE DE IDA(A LA ESI)      |\n");
+    printf("|       2.VIAJE DE VUELTA(DE LA ESI)    |\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||\n");
     scanf("%d",&selector);
     fflush(stdin);
     system("cls");
     while (selector<1 || selector>2){
         printf("Introduzca una opcion correcta\n\n\n");
-        printf("||||||||||||||||||||||||||||||||||||||\n");
-        printf("|       Seleccione una opcion:       |\n");
-        printf("|      1.VIAJE DE IDA(A LA ESI)      |\n");
-        printf("|    2.VIAJE DE VUELTA(DE LA ESI)    |\n");
-        printf("||||||||||||||||||||||||||||||||||||||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
+        printf("|       Seleccione un tipo de viaje:    |\n");
+        printf("|         1.VIAJE DE IDA(A LA ESI)      |\n");
+        printf("|       2.VIAJE DE VUELTA(DE LA ESI)    |\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||\n");
         scanf("%d",&selector);
         system("cls");
     }
@@ -66,12 +60,14 @@ void CREAR_VIAJE(){
         ida_recorrido();
     else
         vuelta_recorrido();
+
+    return (selector);
 }
 
 void ida_recorrido(){
     FILE *pasos;
     pasos= fopen("pasos.txt", "a+");
-    int a=0,i_plazaespana=1,i_victoria=1,i_RioSanPedro=1,i_Casem=1,i_Plaza=1,i_BahiaSur=1,i_HornosPunicos=1,i_Ardila=1,i_ParqueHuerta=1,i_calzada=1, i_hipodromo=1,i_Polila=1,i_bajoguia=1,i_Marquesado=1,i_pinarfranceses=1,i_Rana=1,i_Novo=1,i_Rotonda1=1,i_Minotauro=1,i_TrenesJerz=1,i_PuertoSantMaria=1,i_TrenesPuerto=1,i_Valdelagrana=1,i_Sudamerica=1,i_Plazatoros=1;
+    int a=0;
     char ubi1,ubi2,ubi3,ubi4,ubi5,ubi6;
     printf ("|      Selecione la su lugar de salida:        |\n");
     printf ("|      1.Cadiz                                 |\n");
@@ -94,9 +90,8 @@ void ida_recorrido(){
             printf("1.Plaza Espana(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                i_plazaespana=0;
-                fputs(pasos,"Cadiz PlazaEspana");
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-Cadiz PlazaEspana");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -107,8 +102,9 @@ void ida_recorrido(){
             printf("2.Hotel Victoria(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_victoria=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Cadiz Hospital");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -118,19 +114,21 @@ void ida_recorrido(){
             printf("3.Barriada Rio San Pedro(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_RioSanPedro=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Cadiz Estadio");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
 
         do{
-            printf("4.Casem(S/N)\n");
+            printf("4.Puerta Tierra(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                i_Casem=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-I-Cadiz PuertaTierra");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -141,7 +139,59 @@ void ida_recorrido(){
 
 
     case 2:
-        printf("Su lugar de salida es Puerto Real");
+        system("cls");
+        printf("Su lugar de salida es Puerto Real\n");
+        printf("Introduzca los lugares por los que va a pasar\n");
+        printf ("Sus respuestas solo se actaran si son mayusculas\n");
+        do{
+            printf("1.Estacion de trenes(S/N)\n");
+            scanf("%c",&ubi1);
+            fflush(stdin);
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-Puerto Real Estaciontrenes");
+                a=0;
+        }
+        if(ubi1!='N'&&ubi1!='S')
+           system("cls");
+        }while(ubi1!='N'&&ubi1!='S');
+
+        do{
+            printf("2.Burger King(S/N)\n");
+            scanf("%c",&ubi2);
+            fflush(stdin);
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Puerto Real BK");
+                a=0;
+        }
+        if(ubi2!='N'&&ubi2!='S')
+           system("cls");
+        }while(ubi2!='N'&&ubi2!='S');
+
+        do{
+            printf("3.Laguna de la Marroquia(S/N)\n");
+            scanf("%c",&ubi3);
+            fflush(stdin);
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Puerto Real LagunaMarroquia");
+                a=0;
+        }
+        if(ubi3!='N'&&ubi3!='S')
+           system("cls");
+        }while(ubi3!='N'&&ubi3!='S');
+
+        do{
+            printf("4.Casem(S/N)\n");
+            scanf("%c",&ubi4);
+            fflush(stdin);
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-I-Puesto Real Casem");
+                a=0;
+                break;
+        }
+        if(ubi4!='N'&&ubi4!='S')
+           system("cls");
+        }while(ubi4!='N'&&ubi4!='S');
+        system("cls");
         break;
 
 
@@ -151,22 +201,24 @@ void ida_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Rotonda 1(S/N)\n");
+            printf("1.Minotauro (S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                i_Rotonda1=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-Jerez Minotauro");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Minotauro(S/N)\n");
+            printf("2.Rotonda(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_Minotauro=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Jerez Roronda");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -176,25 +228,14 @@ void ida_recorrido(){
             printf("3.Estacion de trenes(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_TrenesJerz=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Jerez EstacionTrenes");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
 
-        do{
-            printf("4.Puerto Sant Maria(S/N)\n");
-            scanf("%c",&ubi4);
-            fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                i_PuertoSantMaria=0;
-                break;
-        }
-        if(ubi4!='N'&&ubi4!='S')
-           system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
-        system("cls");
         break;
 
 
@@ -207,8 +248,9 @@ void ida_recorrido(){
             printf("1.Marquesado(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                i_Marquesado=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-Chiclana Marquesado");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
@@ -218,8 +260,9 @@ void ida_recorrido(){
             printf("2.Pinar de los franceses(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_pinarfranceses=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Chiclana Franceses");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -229,8 +272,9 @@ void ida_recorrido(){
             printf("3.El Novo(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_Novo=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Chiclana Novo");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
@@ -241,7 +285,8 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='N'||ubi4=='n'){
-                i_Rana=0;
+                fprintf(pasos,"-I-Chiclana Gallos");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -257,62 +302,40 @@ void ida_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Calzada(S/N)\n");
+            printf("1.El Palmar(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                i_calzada=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-SanLucar Palmar");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Bajo Guia(S/N)\n");
+            printf("2.Avenida 5º Centenario(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_bajoguia=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-SanLucar Centenario");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
         }while(ubi2!='N'&&ubi2!='S');
 
         do{
-            printf("3.Hipodromo(S/N)\n");
+            printf("3.Rotonda(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_hipodromo=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-SanLucar Rotonda");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
-
-        do{
-            printf("4.Barriada La Polila(S/N)\n");
-            scanf("%c",&ubi4);
-            fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                i_Polila=0;
-                break;
-        }
-        if(ubi4!='N'&&ubi4!='S')
-           system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
-        system("cls");
-        do{
-            printf("5.Puerto Sant Maria(S/N)\n");
-            scanf("%c",&ubi5);
-            fflush(stdin);
-            if (ubi5=='N'||ubi5=='n'){
-                i_PuertoSantMaria=0;
-                break;
-        }
-        if(ubi5!='N'&&ubi5!='S')
-           system("cls");
-        }while(ubi5!='N'&&ubi5!='S');
-        system("cls");
         break;
 
 
@@ -325,8 +348,9 @@ void ida_recorrido(){
             printf("1.Estacion de Trenes(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                i_TrenesPuerto=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-I-Puerto Estaciontrenes");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
@@ -336,8 +360,9 @@ void ida_recorrido(){
             printf("2.Valdelagrana(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_Valdelagrana=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Puerto Valdelagrana");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -347,8 +372,9 @@ void ida_recorrido(){
             printf("3.Sudamerica(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_Sudamerica=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Puerto Sudamerica");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
@@ -358,8 +384,9 @@ void ida_recorrido(){
             printf("4.Plaza de toros(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                i_Plazatoros=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-I-Puerto PlazaToros");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -374,22 +401,24 @@ void ida_recorrido(){
         printf("Su lugar de salida es San Fernando\n");
         printf("Introduzca los lugares por los que va a pasar\n");
         do{
-            printf("1.Plaza(S/N)\n");
+            printf("1.Parque de la Huerta(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1=='n'){
-                i_Plaza=0;
+            if (ubi1=='S'||ubi1=='s'){
+                fprintf(pasos,"-I-Sanfer ParqueHuerta");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Bahia Sur(S/N)\n");
+            printf("2.Ardila(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                i_BahiaSur=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-I-Sanfer Ardila");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -399,19 +428,21 @@ void ida_recorrido(){
             printf("3.Hornos Punicos(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                i_HornosPunicos=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-I-Sanfer HornosPunicos");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
 
         do{
-            printf("4.Ardila(S/N)\n");
+            printf("4.Bahia Sur(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                i_Ardila=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-I-Sanfer BahiaSur");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -419,11 +450,12 @@ void ida_recorrido(){
         }while(ubi4!='N'&&ubi4!='S');
 
         do{
-            printf("5.Parque de la Huerta(S/N)\n");
+            printf("5.Plaza(S/N)\n");
             scanf("%c",&ubi5);
             fflush(stdin);
-            if (ubi5=='N'||ubi5=='n'){
-                i_ParqueHuerta=0;
+            if (ubi5=='S'||ubi5=='s'){
+                fprintf(pasos,"-I-Sanfer Plaza");
+                a=0;
                 break;
         }
         if(ubi5!='N'&&ubi5!='S')
@@ -435,7 +467,9 @@ void ida_recorrido(){
 }
 
 void vuelta_recorrido(){
-    int a=0,v_puentenuevo=1,v_puenteviejo=1,v_RioSanPedro=1,v_Casem=1,v_Plaza=1,v_BahiaSur=1,v_HornosPunicos=1,v_Ardila=1,v_ParqueHuerta=1,v_calzada=1,v_hipodromo=1,v_Polila=1,v_bajoguia=1,v_Marquesado=1,v_pinarfranceses=1,v_Rana=1,v_Novo=1,v_Rotonda1=1,v_Minotauro=1,v_TrenesJerz=1,v_PuertoSantMaria=1,v_TrenesPuerto=1,v_Valdelagrana=1,v_Sudamerica=1,v_Plazatoros=1;
+    FILE *pasos;
+    pasos= fopen("pasos.txt", "a+");
+    int a=0;
     char ubi1,ubi2,ubi3,ubi4,ubi5,ubi6;
     printf ("|      Selecione la su lugar de llegada:       |\n");
     printf ("|      1.Cadiz                                 |\n");
@@ -455,22 +489,24 @@ void vuelta_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Puente Nuevo(S/N)\n");
+            printf("1.Plaza Espana(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                v_puentenuevo=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-Cadiz PlazaEspana");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Puente Viejo(S/N)\n");
+            printf("2.Hotel Victoria(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-               v_puenteviejo=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Cadiz Hospital");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -480,19 +516,21 @@ void vuelta_recorrido(){
             printf("3.Barriada Rio San Pedro(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_RioSanPedro=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Cadiz Estadio");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
 
         do{
-            printf("4.Casem(S/N)\n");
+            printf("4.Puerta Tierra(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_Casem=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-V-Cadiz PuertaTierra");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -503,7 +541,59 @@ void vuelta_recorrido(){
 
 
     case 2:
-        printf("Su lugar de llegada es Puerto Real");
+        system("cls");
+        printf("Su lugar de llegada es Puerto Real\n");
+        printf("Introduzca los lugares por los que va a pasar\n");
+        printf ("Sus respuestas solo se actaran si son mayusculas\n");
+        do{
+            printf("1.Estacion de trenes(S/N)\n");
+            scanf("%c",&ubi1);
+            fflush(stdin);
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-Puerto Real Estaciontrenes");
+                a=0;
+        }
+        if(ubi1!='N'&&ubi1!='S')
+           system("cls");
+        }while(ubi1!='N'&&ubi1!='S');
+
+        do{
+            printf("2.Burger King(S/N)\n");
+            scanf("%c",&ubi2);
+            fflush(stdin);
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Puerto Real BK");
+                a=0;
+        }
+        if(ubi2!='N'&&ubi2!='S')
+           system("cls");
+        }while(ubi2!='N'&&ubi2!='S');
+
+        do{
+            printf("3.Laguna de la Marroquia(S/N)\n");
+            scanf("%c",&ubi3);
+            fflush(stdin);
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Puerto Real LagunaMarroquia");
+                a=0;
+        }
+        if(ubi3!='N'&&ubi3!='S')
+           system("cls");
+        }while(ubi3!='N'&&ubi3!='S');
+
+        do{
+            printf("4.Casem(S/N)\n");
+            scanf("%c",&ubi4);
+            fflush(stdin);
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-V-Puesto Real Casem");
+                a=0;
+                break;
+        }
+        if(ubi4!='N'&&ubi4!='S')
+           system("cls");
+        }while(ubi4!='N'&&ubi4!='S');
+        system("cls");
         break;
 
 
@@ -513,22 +603,24 @@ void vuelta_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Rotonda 1(S/N)\n");
+            printf("1.Minotauro (S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                v_Rotonda1=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-Jerez Minotauro");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Minotauro(S/N)\n");
+            printf("2.Rotonda(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                v_Minotauro=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Jerez Roronda");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -538,25 +630,13 @@ void vuelta_recorrido(){
             printf("3.Estacion de trenes(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_TrenesJerz=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Jerez EstacionTrenes");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
-
-        do{
-            printf("4.Puerto Sant Maria(S/N)\n");
-            scanf("%c",&ubi4);
-            fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_PuertoSantMaria=0;
-                break;
-        }
-        if(ubi4!='N'&&ubi4!='S')
-           system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
-        system("cls");
         break;
 
 
@@ -569,8 +649,9 @@ void vuelta_recorrido(){
             printf("1.Marquesado(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                v_Marquesado=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-Chiclana Marquesado");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
@@ -580,8 +661,9 @@ void vuelta_recorrido(){
             printf("2.Pinar de los franceses(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                v_pinarfranceses=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Chiclana Franceses");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -591,8 +673,9 @@ void vuelta_recorrido(){
             printf("3.El Novo(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_Novo=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Chiclana Novo");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
@@ -603,7 +686,8 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='N'||ubi4=='n'){
-                v_Rana=0;
+                fprintf(pasos,"-V-Chiclana Gallos");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -619,62 +703,40 @@ void vuelta_recorrido(){
         printf("Introduzca los lugares por los que va a pasar\n");
         printf ("Sus respuestas solo se actaran si son mayusculas\n");
         do{
-            printf("1.Calzada(S/N)\n");
+            printf("1.El Palmar(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                v_calzada=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-SanLucar Palmar");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Bajo Guia(S/N)\n");
+            printf("2.Avenida 5º Centenario(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                v_bajoguia=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-SanLucar Centenario");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
         }while(ubi2!='N'&&ubi2!='S');
 
         do{
-            printf("3.Hipodromo(S/N)\n");
+            printf("3.Rotonda(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_hipodromo=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-SanLucar Rotonda");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
-
-        do{
-            printf("4.Barriada La Polila(S/N)\n");
-            scanf("%c",&ubi4);
-            fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_Polila=0;
-                break;
-        }
-        if(ubi4!='N'&&ubi4!='S')
-           system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
-        system("cls");
-        do{
-            printf("5.Puerto Sant Maria(S/N)\n");
-            scanf("%c",&ubi4);
-            fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_PuertoSantMaria=0;
-                break;
-        }
-        if(ubi4!='N'&&ubi4!='S')
-           system("cls");
-        }while(ubi4!='N'&&ubi4!='S');
-        system("cls");
         break;
 
 
@@ -687,8 +749,9 @@ void vuelta_recorrido(){
             printf("1.Estacion de Trenes(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1!='n'){
-                v_TrenesPuerto=0;
+            if (ubi1=='S'||ubi1!='s'){
+                fprintf(pasos,"-V-Puerto Estaciontrenes");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
@@ -698,8 +761,9 @@ void vuelta_recorrido(){
             printf("2.Valdelagrana(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                v_Valdelagrana=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Puerto Valdelagrana");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -709,8 +773,9 @@ void vuelta_recorrido(){
             printf("3.Sudamerica(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_Sudamerica=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Puerto Sudamerica");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
@@ -720,8 +785,9 @@ void vuelta_recorrido(){
             printf("4.Plaza de toros(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_Plazatoros=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-V-Puerto PlazaToros");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -736,22 +802,24 @@ void vuelta_recorrido(){
         printf("Su lugar de llegada es San Fernando\n");
         printf("Introduzca los lugares por los que va a pasar\n");
         do{
-            printf("1.Plaza(S/N)\n");
+            printf("1.Parque de la Huerta(S/N)\n");
             scanf("%c",&ubi1);
             fflush(stdin);
-            if (ubi1=='N'||ubi1=='n'){
-                v_Plaza=0;
+            if (ubi1=='S'||ubi1=='s'){
+                fprintf(pasos,"-V-Sanfer ParqueHuerta");
+                a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
            system("cls");
         }while(ubi1!='N'&&ubi1!='S');
 
         do{
-            printf("2.Bahia Sur(S/N)\n");
+            printf("2.Ardila(S/N)\n");
             scanf("%c",&ubi2);
             fflush(stdin);
-            if (ubi2=='N'||ubi2=='n'){
-                v_BahiaSur=0;
+            if (ubi2=='S'||ubi2=='s'){
+                fprintf(pasos,"-V-Sanfer Ardila");
+                a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
            system("cls");
@@ -761,19 +829,21 @@ void vuelta_recorrido(){
             printf("3.Hornos Punicos(S/N)\n");
             scanf("%c",&ubi3);
             fflush(stdin);
-            if (ubi3=='N'||ubi3=='n'){
-                v_HornosPunicos=0;
+            if (ubi3=='S'||ubi3=='s'){
+                fprintf(pasos,"-V-Sanfer HornosPunicos");
+                a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
            system("cls");
         }while(ubi3!='N'&&ubi3!='S');
 
         do{
-            printf("4.Ardila(S/N)\n");
+            printf("4.Bahia Sur(S/N)\n");
             scanf("%c",&ubi4);
             fflush(stdin);
-            if (ubi4=='N'||ubi4=='n'){
-                v_Ardila=0;
+            if (ubi4=='S'||ubi4=='s'){
+                fprintf(pasos,"-V-Sanfer BahiaSur");
+                a=0;
                 break;
         }
         if(ubi4!='N'&&ubi4!='S')
@@ -781,11 +851,12 @@ void vuelta_recorrido(){
         }while(ubi4!='N'&&ubi4!='S');
 
         do{
-            printf("5.Parque de la Huerta(S/N)\n");
+            printf("5.Plaza(S/N)\n");
             scanf("%c",&ubi5);
             fflush(stdin);
-            if (ubi5=='N'||ubi5=='n'){
-                v_ParqueHuerta=0;
+            if (ubi5=='S'||ubi5=='s'){
+                fprintf(pasos,"-V-Sanfer Plaza");
+                a=0;
                 break;
         }
         if(ubi5!='N'&&ubi5!='S')
@@ -797,7 +868,6 @@ void vuelta_recorrido(){
 }
 
 void selector_camino(){
-    void selecionar_t(){
     int selector;
     printf("|||||||||||||||||||||||||||||||||||||\n");
     printf("|   Seleccione el tipo de viaje:    |\n");
@@ -821,10 +891,9 @@ void selector_camino(){
         selector_i();
     else
         selector_v();
-    }
 }
 
-void selector_i(){
+int selector_i(){
     int selectorc;
     printf("|||||||||||||||||||||||||||||||||||||\n");
     printf("|   Seleccione su lugar de SALIDA:  |\n");
@@ -832,7 +901,7 @@ void selector_i(){
     printf("|           2.PUERTO REAL           |\n");
     printf("|             3.JEREZ               |\n");
     printf("|            4.CHICLANA             |\n");
-    printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+    printf("|      5.SANLUCAR DE BARRAMEDA      |\n");
     printf("|      6.PUERTO DE SANTA MARIA      |\n");
     printf("|          7.SAN FERNANDO           |\n");
     printf("|||||||||||||||||||||||||||||||||||||\n");
@@ -847,7 +916,7 @@ void selector_i(){
             printf("|           2.PUERTO REAL           |\n");
             printf("|             3.JEREZ               |\n");
             printf("|            4.CHICLANA             |\n");
-            printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+            printf("|      5.SANLUCAR DE BARRAMEDA      |\n");
             printf("|      6.PUERTO DE SANTA MARIA      |\n");
             printf("|          7.SAN FERNANDO           |\n");
             printf("|||||||||||||||||||||||||||||||||||||\n");
@@ -855,39 +924,11 @@ void selector_i(){
             fflush(stdin);
             system("cls");
     }
-    switch(selectorc){
-    case 1:
-        system("cls");
-        cadiz();
-        break;
-    case 2:
-        system("cls");
-        puertoreal();
-        break;
-    case 3:
-        system("cls");
-        jerez();
-        break;
-    case 4:
-        system("cls");
-        chiclana();
-        break;
-    case 5:
-        system("cls");
-        sanlucar();
-        break;
-    case 6:
-        system("cls");
-        puerto();
-        break;
-    case 7:
-        system("cls");
-        sanfer();
-        break;
-    }
+    sel(selectorc);
+return (selectorc);
 }
 
-void selector_v(){
+int selector_v(){
     int selectorc;
     printf("|||||||||||||||||||||||||||||||||||||\n");
     printf("|   Seleccione su lugar de VUELTA:  |\n");
@@ -895,7 +936,7 @@ void selector_v(){
     printf("|           2.PUERTO REAL           |\n");
     printf("|             3.JEREZ               |\n");
     printf("|            4.CHICLANA             |\n");
-    printf("|     5.SAN LUCAR DE BARRAMEDA      |\n");
+    printf("|      5.SANLUCAR DE BARRAMEDA      |\n");
     printf("|      6.PUERTO DE SANTA MARIA      |\n");
     printf("|          7.SAN FERNANDO           |\n");
     printf("|||||||||||||||||||||||||||||||||||||\n");
@@ -909,7 +950,7 @@ void selector_v(){
         printf("|           2.PUERTO REAL            |\n");
         printf("|             3.JEREZ                |\n");
         printf("|            4.CHICLANA              |\n");
-        printf("|     5.SAN LUCAR DE BARRAMEDA       |\n");
+        printf("|      5.SANLUCAR DE BARRAMEDA       |\n");
         printf("|      6.PUERTO DE SANTA MARIA       |\n");
         printf("|          7.SAN FERNANDO            |\n");
         printf("||||||||||||||||||||||||||||||||||||||\n");
@@ -917,68 +958,40 @@ void selector_v(){
         fflush(stdin);
         system("cls");
     }
-    switch(selectorc){
-    case 1:
-        system("cls");
-        cadiz();
-        break;
-    case 2:
-        system("cls");
-        puertoreal();
-        break;
-    case 3:
-        system("cls");
-        jerez();
-        break;
-    case 4:
-        system("cls");
-        chiclana();
-        break;
-    case 5:
-        system("cls");
-        sanlucar();
-        break;
-    case 6:
-        system("cls");
-        puerto();
-        break;
-    case 7:
-        system("cls");
-        sanfer();
-        break;
-    }
+    sel(selectorc);
+return(selectorc);
 }
 
-void cadiz(){
-    int selectorc;
+int cadiz(){
+    int parada;
     printf("|||||||||||||||||||||||||||||||||||||||||\n");
     printf("|                 CADIZ                 |\n");
     printf("|     Seleccione la parada deseada:     |\n");
     printf("|            1.PLAZA ESPAÑA             |\n");
     printf("|              2.HOSPITAL               |\n");
-    printf("|        3.BARRIADA RIO SAN PEDRO       |\n");
-    printf("|                4.CASEM                |\n");
+    printf("|              3.ESTADIO                |\n");
+    printf("|           4.PUERTA TIERRA             |\n");
     printf("|||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>4){
-        printf("Introduzca una opcion correcta\n\n\n");
+    while (parada<1 || parada>4){
         printf("|||||||||||||||||||||||||||||||||||||||||\n");
         printf("|                 CADIZ                 |\n");
         printf("|     Seleccione la parada deseada:     |\n");
         printf("|            1.PLAZA ESPAÑA             |\n");
         printf("|              2.HOSPITAL               |\n");
-        printf("|        3.BARRIADA RIO SAN PEDRO       |\n");
-        printf("|                4.CASEM                |\n");
+        printf("|              3.ESTADIO                |\n");
+        printf("|           4.PUERTA TIERRA             |\n");
         printf("|||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return (parada);
 }
 
-void puertoreal(){
-    int selectorc;
+int puertoreal(){
+    int parada;
     printf("||||||||||||||||||||||||||||||||||||||||\n");
     printf("|             PUERTO REAL              |\n");
     printf("|     Seleccione la parada deseada:    |\n");
@@ -987,9 +1000,9 @@ void puertoreal(){
     printf("|        3.LAGUNA DE LA MARROQUIA      |\n");
     printf("|              4.CASEM                 |\n");
     printf("||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>4){
+    while (parada<1 || parada>4){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("||||||||||||||||||||||||||||||||||||||||\n");
         printf("|             PUERTO REAL              |\n");
@@ -999,14 +1012,15 @@ void puertoreal(){
         printf("|        3.LAGUNA DE LA MARROQUIA      |\n");
         printf("|              4.CASEM                 |\n");
         printf("||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return(parada);
 }
 
-void jerez(){
-    int selectorc;
+int jerez(){
+    int parada;
     printf("|||||||||||||||||||||||||||||||||||||||||\n");
     printf("|                  JEREZ                |\n");
     printf("|     Seleccione la parada deseada:     |\n");
@@ -1015,9 +1029,9 @@ void jerez(){
     printf("|          3.ESTACION DE TRENES         |\n");
     printf("|         4.PUERTO DE SANTA MARIA       |\n");
     printf("|||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>4){
+    while (parada<1 || parada>4){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("|||||||||||||||||||||||||||||||||||||||||\n");
         printf("|                 JEREZ                 |\n");
@@ -1027,14 +1041,15 @@ void jerez(){
         printf("|          3.ESTACION DE TRENES         |\n");
         printf("|         4.PUERTO DE SANTA MARIA       |\n");
         printf("|||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return (parada);
 }
 
-void chiclana(){
-    int selectorc;
+int chiclana(){
+    int parada;
     printf("||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|               CHICLANA                 |\n");
     printf("|    Seleccione la parada deseada:       |\n");
@@ -1043,9 +1058,9 @@ void chiclana(){
     printf("|              3.FRANCESES               |\n");
     printf("|             4.LOS GALLOS               |\n");
     printf("||||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>4){
+    while (parada<1 || parada>4){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("||||||||||||||||||||||||||||||||||||||||||\n");
         printf("|               CHICLANA                 |\n");
@@ -1055,92 +1070,130 @@ void chiclana(){
         printf("|              3.FRANCESES               |\n");
         printf("|             4.LOS GALLOS               |\n");
         printf("||||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return (parada);
 }
 
-void sanlucar(){
-    int selectorc;
+int sanlucar(){
+    int parada;
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|             SAN LUCAR DE BARRAMEDA              |\n");
+    printf("|              SANLUCAR DE BARRAMEDA              |\n");
     printf("|          Seleccione la parada deseada:          |\n");
     printf("|                   1.EL PALMAR                   |\n");
     printf("|                  2.5ºCENTENARIO                 |\n");
     printf("|                3.ROTONDA DEL TREN               |\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>3){
+    while (parada<1 || parada>3){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-        printf("|             SAN LUCAR DE BARRAMEDA              |\n");
+        printf("|              SANLUCAR DE BARRAMEDA              |\n");
         printf("|          Seleccione la parada deseada:          |\n");
         printf("|                   1.EL PALMAR                   |\n");
         printf("|              2.AVENIDA 5ºCENTENARIO             |\n");
         printf("|                3.ROTONDA DEL TREN               |\n");
         printf("|||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+    return (parada);
 }
 
-void puerto(){
-    int selectorc;
+int puerto(){
+    int parada;
     printf("||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|               PUERTO REAL              |\n");
+    printf("|          PUERTO SANTA MARIA            |\n");
     printf("|     Seleccione la parada deseada:      |\n");
     printf("|         1.ESTACION DE TRENES           |\n");
     printf("|            2.VALDELAGRANA              |\n");
     printf("|             3.SUDAMERICA               |\n");
     printf("|            4.PLAZA DE TOROS            |\n");
     printf("||||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>4){
+    while (parada<1 || parada>4){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("||||||||||||||||||||||||||||||||||||||||||\n");
-        printf("|               PUERTO REAL              |\n");
+        printf("|          PUERTO SANTA MARIA            |\n");
         printf("|     Seleccione la parada deseada:      |\n");
         printf("|         1.ESTACION DE TRENES           |\n");
         printf("|            2.VALDELAGRANA              |\n");
         printf("|             3.SUDAMERICA               |\n");
         printf("|            4.PLAZA DE TOROS            |\n");
         printf("||||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return (parada);
 }
 
-void sanfer(){
-    int selectorc;
+int sanfer(){
+    int parada;
     printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|                    SAN FERNANDO                  |\n");
     printf("|          Seleccione la parada deseada:           |\n");
     printf("|                 1.PARQUE LA HUERTA               |\n");
     printf("|                     2.ARDILA                     |\n");
-    printf("|                 3.HIRNOS PUNICOS                 |\n");
+    printf("|                 3.HORNOS PUNICOS                 |\n");
     printf("|                    4.BAHIA SUR                   |\n");
     printf("|                      5.PLAZA                     |\n");
     printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    scanf("%d",&selectorc);
+    scanf("%d",&parada);
     fflush(stdin);
-    while (selectorc<1 || selectorc>5){
+    while (parada<1 || parada>5){
         printf("Introduzca una opcion correcta\n\n\n");
         printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         printf("|                    SAN FERNANDO                  |\n");
         printf("|          Seleccione la parada deseada:           |\n");
         printf("|                 1.PARQUE LA HUERTA               |\n");
         printf("|                     2.ARDILA                     |\n");
-        printf("|                 3.HIRNOS PUNICOS                 |\n");
+        printf("|                 3.HORNOS PUNICOS                 |\n");
         printf("|                    4.BAHIA SUR                   |\n");
         printf("|                      5.PLAZA                     |\n");
         printf("||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-        scanf("%d",&selectorc);
+        scanf("%d",&parada);
         fflush(stdin);
         system("cls");
     }
+return (parada);
+}
+
+void sel(int selectorc){
+    switch(selectorc){
+        case 1:
+            system ("pause");
+            system("cls");
+            cadiz();
+            break;
+        case 2:
+            system("cls");
+            puertoreal();
+            break;
+        case 3:
+            system("cls");
+            jerez();
+            break;
+        case 4:
+            system("cls");
+            chiclana();
+            break;
+        case 5:
+            system("cls");
+            sanlucar();
+            break;
+        case 6:
+            system("cls");
+            puerto();
+            break;
+        case 7:
+            system("cls");
+            sanfer();
+            break;
+        }
 }
