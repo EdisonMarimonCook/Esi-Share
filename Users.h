@@ -3,7 +3,7 @@
 
 typedef struct {
 
-    int Id_Users[5];
+    int Id_Users;
     char Name_User[21];
     char Place[21];
     char User_Profile[14];
