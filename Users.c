@@ -12,6 +12,16 @@ void Editar_Perfil();
 void Admin();
 void sign_up();
 void login();
+void Editar_Contrasenya();
+void Editar_Rango();
+
+int main(){
+    
+    setlocale(LC_ALL, "spanish");
+    User_Menu();
+
+    return 0;    
+}
 
 void User_Menu(){
 
@@ -58,14 +68,6 @@ void User_Menu(){
 
     fclose(fuser);
 
-}
-
-int main(){
-    
-    setlocale(LC_ALL, "spanish");
-    User_Menu();
-
-    return 0;    
 }
 
 void sign_up(){
@@ -166,7 +168,7 @@ void sign_up(){
         int id = atoi(str);
         id++;
 
-        fflush(stdin);
+        fflush(stdin); 
 
         fseek(fuser, 0, SEEK_END);        
         sprintf(str, "%04d", id);
@@ -253,22 +255,22 @@ void login(){
 
     while (fgets(line, sizeof(line), fuser) != NULL) {
         num_guion = 0;
-            for(int i = strlen(line); i >= 0; i--){
-                c = line[i];
-                if(c == '-'){
-                    num_guion++;
-                    if(num_guion == 2){
-                        strcpy(newline, &line[i+1]); 
-                        for(long long unsigned int z = 0; z <= strlen(newline); z++){
-                            c = newline[z];
-                            if(c == '-'){
-                                newline[z] = '\0';
-                                break;
-                            }
+        for(int i = strlen(line); i >= 0; i--){
+            c = line[i];
+            if(c == '-'){
+                num_guion++;
+                if(num_guion == 2){
+                    strcpy(newline, &line[i+1]); 
+                    for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                        c = newline[z];
+                        if(c == '-'){
+                            newline[z] = '\0';
+                            break;
                         }
                     }
                 }
             }
+        }
 
         if (strstr(newline, usuario_imput) != NULL) {
             check = 1;
@@ -329,7 +331,7 @@ void login(){
             newline[0] = '\0';
             char check_user[] = "user";
             while (fgets(line, sizeof(line), fuser) != NULL) {
-            num_guion = 0;
+                num_guion = 0;
                 for(int i = strlen(line); i >= 0; i--){
                     c = line[i];
                     if(c == '-'){
@@ -381,6 +383,7 @@ void User_Menu_Opciones_Usu(char nombre_entero[]){
 
     scanf("%d", &elec);
     system("cls");
+    /*
     switch(elec){
         case 1: menu_vehiculos();
         break;
@@ -391,7 +394,7 @@ void User_Menu_Opciones_Usu(char nombre_entero[]){
         case 3: Editar_Perfil();
         break;
     }
-
+    */
 }
 
 void Admin(){
@@ -399,11 +402,124 @@ void Admin(){
 
     puts("Eres admin");
 
+    puts("Pulse 1 para editar el rango de un usuario.");
+    puts("Pulse 2 para editar su contraseña. ");
+
+    int elec;
+
+    scanf("%d", &elec);
+    system("cls");
+    switch(elec){
+        case 1: Editar_Rango();
+        break;
+
+        case 2: Editar_Contrasenya();
+        break;
+    }
+
+}
+
+void Editar_Rango(){
+    system("cls");
+
+    FILE *fuser;
+    fuser = fopen("user_database.txt", "r+");
+
+    char usuario[10];
+    char line[85];
+    int num_guion;
+    char newline[20];
+
+    puts("Ponga el nombre del usuario que quieres cambiar de rango:");
+
+    scanf("%s", usuario);
+
+    char c;
+    int check = 0;
+
+    while (fgets(line, sizeof(line), fuser) != NULL) {
+        num_guion = 0;
+        for(int i = strlen(line); i >= 0; i--){
+            c = line[i];
+            if(c == '-'){
+                num_guion++;
+                if(num_guion == 2){
+                    strcpy(newline, &line[i+1]); 
+                    for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                        c = newline[z];
+                        if(c == '-'){
+                            newline[z] = '\0';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (strstr(newline, usuario) != NULL) {
+            check = 1;
+            break;
+        }
+    }
+    
+    if(check == 0){
+        system("cls");
+
+        puts("Usuario no encontrado.");
+        Admin();
+
+    }else{
+        char check_user[] = "user";
+        newline[0] = '\0';
+        num_guion = 0;
+        for(int i = strlen(line); i >= 0; i--){
+            c = line[i];
+            if(c == '-'){
+                num_guion++;
+                if(num_guion == 3){
+                    strcpy(newline, &line[i+1]); 
+                    for(long long unsigned int z = 0; z <= strlen(newline); z++){
+                        c = newline[z];
+                        if(c == '-'){
+                            newline[z] = '\0';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(strstr(check_user, newline) == 0){
+            puts("Quiere cambiar este usuario a admin? Si sí pulse 1 y si no pulse 2");
+            int opcion;
+
+            scanf("%d", &opcion);
+
+            if(opcion == 1){
+                //if 1 change -user- to -admin- in file
+            }else{
+                Admin();
+            }
+
+        }else{
+            puts("Usuario ya es admin.");
+            Admin();
+        }
+    }
+
+    fclose(fuser);
+
 }
 
 void Editar_Perfil(){
+    system("cls");
+
     puts("Aqui para editar tu perfil");
 
+}
+
+void Editar_Contrasenya(){
+    puts("Aqui para editar contrasenya");
 }
 
 int getUserId(const char *usuario){
@@ -459,4 +575,5 @@ int getUserId(const char *usuario){
 
     }
 
+    fclose(fuser);
 }
