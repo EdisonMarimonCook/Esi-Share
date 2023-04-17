@@ -8,7 +8,7 @@ typedef struct {
     char Place[21];
     char User_Profile[14];
     char User[10];
-    char Password[9];
+    char Password[9]; 
 
 }user;
 

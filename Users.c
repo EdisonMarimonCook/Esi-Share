@@ -7,6 +7,7 @@
 #include "viajes_header.h"
 #include "Vehiculos_header.h"
 
+int getUserId();
 void User_Menu_Opciones_Usu();
 void Editar_Perfil();
 void Admin();
@@ -130,7 +131,7 @@ void sign_up(){
     fflush(stdin);
     
     char user_check[] = "user";
-    char admin_check[] = "admin";
+    char admin_check[] = "admi";
     char line[85];
     int i = 0;
 
@@ -245,6 +246,8 @@ void login(){
         puts("Ponga su usuario:");
         scanf("%s", usuario_imput);
 
+            system("cls");
+
             if(strlen(usuario_imput) > 5){
                 puts("Escriba un nombre de usuario que sea menos o igual que 5 caracteres.");
             }
@@ -350,9 +353,9 @@ void login(){
                 }
             }
          
-            if(newline == check_user){
+            if(strstr(newline, check_user) != NULL){
 
-                User_Menu_Opciones_Usu(nombre_entero);
+                User_Menu_Opciones_Usu(nombre_entero, usuario_imput);
 
             }else{
 
@@ -370,48 +373,48 @@ void login(){
     fclose(fuser);
 }
 
-void User_Menu_Opciones_Usu(char nombre_entero[]){
+void User_Menu_Opciones_Usu(char nombre_entero[], char usuario_imput[]){
     int elec;
     system("cls");
-    printf("Bienvenid@ %s", nombre_entero);
+    printf("Bienvenid@ %s\n", nombre_entero);
 
     puts("Que quiere hacer?");
     printf("\n");
     puts("Pulse 1 para entrar en el menu de seleccion de vehiculos");
     puts("Pulse 2 para entrar en el menu de seleccion de viajes"); 
-    puts("Pulse 3 para editar su perfil");
+    puts("Pulse 3 para editar su contrasenya");
 
     scanf("%d", &elec);
     system("cls");
-    /*
-    switch(elec){
+    
+    /*switch(elec){
         case 1: menu_vehiculos();
         break;
 
         case 2: menu_viajes();
         break;
 
-        case 3: Editar_Perfil();
+        case 3: Editar_Contrasenya(usuario_imput);
         break;
-    }
-    */
+    }*/
+    
 }
 
 void Admin(){
-    system("cls");
+    //system("cls");
 
     puts("Eres admin");
 
-    puts("Pulse 1 para editar el rango de un usuario.");
+    //puts("Pulse 1 para editar el rango de un usuario.");
     puts("Pulse 2 para editar su contraseña. ");
 
     int elec;
 
     scanf("%d", &elec);
-    system("cls");
+    //system("cls");
     switch(elec){
-        case 1: Editar_Rango();
-        break;
+        //case 1: Editar_Rango();
+        //break;
 
         case 2: Editar_Contrasenya();
         break;
@@ -419,32 +422,42 @@ void Admin(){
 
 }
 
-void Editar_Rango(){
-    system("cls");
+void Editar_Contrasenya(char usuario_imput[]){
+    //system("cls");
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "r+");
 
-    char usuario[10];
+    char nuev_contr[10];
     char line[85];
     int num_guion;
     char newline[20];
 
-    puts("Ponga el nombre del usuario que quieres cambiar de rango:");
+    puts("Ponga la contrasenya nueva:");
 
-    scanf("%s", usuario);
+    scanf("%s", nuev_contr);
 
+    long int position;
     char c;
     int check = 0;
+    int pos_check;
 
     while (fgets(line, sizeof(line), fuser) != NULL) {
         num_guion = 0;
+        position = ftell(fuser);
+        pos_check = 1;
         for(int i = strlen(line); i >= 0; i--){
             c = line[i];
+            if(pos_check == 1){
+                position--;
+            }
+
             if(c == '-'){
+                pos_check = 0;
                 num_guion++;
                 if(num_guion == 2){
                     strcpy(newline, &line[i+1]); 
+                    position++;
                     for(long long unsigned int z = 0; z <= strlen(newline); z++){
                         c = newline[z];
                         if(c == '-'){
@@ -456,7 +469,7 @@ void Editar_Rango(){
             }
         }
 
-        if (strstr(newline, usuario) != NULL) {
+        if (strstr(newline, usuario_imput) != NULL) {
             check = 1;
             break;
         }
@@ -465,61 +478,20 @@ void Editar_Rango(){
     if(check == 0){
         system("cls");
 
-        puts("Usuario no encontrado.");
-        Admin();
+        puts("Error editando contrasenya");
+        login();
 
     }else{
-        char check_user[] = "user";
-        newline[0] = '\0';
-        num_guion = 0;
-        for(int i = strlen(line); i >= 0; i--){
-            c = line[i];
-            if(c == '-'){
-                num_guion++;
-                if(num_guion == 3){
-                    strcpy(newline, &line[i+1]); 
-                    for(long long unsigned int z = 0; z <= strlen(newline); z++){
-                        c = newline[z];
-                        if(c == '-'){
-                            newline[z] = '\0';
-                            break;
-                        }
-                    }
-                }
-            }
-        }
 
-        if(strstr(check_user, newline) == 0){
-            puts("Quiere cambiar este usuario a admin? Si sí pulse 1 y si no pulse 2");
-            int opcion;
+        fseek(fuser, position, SEEK_SET);
 
-            scanf("%d", &opcion);
-
-            if(opcion == 1){
-                //if 1 change -user- to -admin- in file
-            }else{
-                Admin();
-            }
-
-        }else{
-            puts("Usuario ya es admin.");
-            Admin();
-        }
-    }
-
+        fwrite(nuev_contr, sizeof(char), strlen(nuev_contr), fuser);
+        printf("Contrasenya cambiada a %s correctamente.\n", nuev_contr);
+        login();
+            
     fclose(fuser);
-
-}
-
-void Editar_Perfil(){
-    system("cls");
-
-    puts("Aqui para editar tu perfil");
-
-}
-
-void Editar_Contrasenya(){
-    puts("Aqui para editar contrasenya");
+    }
+    
 }
 
 int getUserId(const char *usuario){
