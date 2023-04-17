@@ -4,6 +4,7 @@
 #include <locale.h>
 #include <string.h>
 #include "PASOS.h"
+#include "viajes_header"
 
 int main(){
     menu_pasos();
@@ -91,7 +92,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-Cadiz PlazaEspana");
+                fprintf(pasos,"-I-Cadiz PlazaEspana\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -103,7 +104,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Cadiz Hospital");
+                fprintf(pasos,"-I-Cadiz Hospital\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -115,7 +116,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Cadiz Estadio");
+                fprintf(pasos,"-I-Cadiz Estadio\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -127,7 +128,7 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-I-Cadiz PuertaTierra");
+                fprintf(pasos,"-I-Cadiz PuertaTierra\n");
                 a=0;
                 break;
         }
@@ -148,7 +149,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-Puerto Real Estaciontrenes");
+                fprintf(pasos,"-I-Puerto Real Estaciontrenes\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -160,7 +161,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Puerto Real BK");
+                fprintf(pasos,"-I-Puerto Real BK\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -172,7 +173,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Puerto Real LagunaMarroquia");
+                fprintf(pasos,"-I-Puerto Real LagunaMarroquia\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -184,7 +185,7 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-I-Puesto Real Casem");
+                fprintf(pasos,"-I-Puesto Real Casem\n");
                 a=0;
                 break;
         }
@@ -205,7 +206,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-Jerez Minotauro");
+                fprintf(pasos,"-I-Jerez Minotauro\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -217,7 +218,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Jerez Roronda");
+                fprintf(pasos,"-I-Jerez Roronda\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -229,7 +230,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Jerez EstacionTrenes");
+                fprintf(pasos,"-I-Jerez EstacionTrenes\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -249,7 +250,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-Chiclana Marquesado");
+                fprintf(pasos,"-I-Chiclana Marquesado\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -261,7 +262,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Chiclana Franceses");
+                fprintf(pasos,"-I-Chiclana Franceses\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -273,7 +274,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Chiclana Novo");
+                fprintf(pasos,"-I-Chiclana Novo\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -285,7 +286,7 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='N'||ubi4=='n'){
-                fprintf(pasos,"-I-Chiclana Gallos");
+                fprintf(pasos,"-I-Chiclana Gallos\n");
                 a=0;
                 break;
         }
@@ -306,7 +307,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-SanLucar Palmar");
+                fprintf(pasos,"-I-SanLucar Palmar\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -318,7 +319,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-SanLucar Centenario");
+                fprintf(pasos,"-I-SanLucar Centenario\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -330,7 +331,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-SanLucar Rotonda");
+                fprintf(pasos,"-I-SanLucar Rotonda\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -349,7 +350,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-I-Puerto Estaciontrenes");
+                fprintf(pasos,"-I-Puerto Estaciontrenes\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -361,7 +362,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Puerto Valdelagrana");
+                fprintf(pasos,"-I-Puerto Valdelagrana\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -373,7 +374,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Puerto Sudamerica");
+                fprintf(pasos,"-I-Puerto Sudamerica\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -385,7 +386,7 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-I-Puerto PlazaToros");
+                fprintf(pasos,"-I-Puerto PlazaToros\n");
                 a=0;
                 break;
         }
@@ -405,7 +406,7 @@ void ida_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1=='s'){
-                fprintf(pasos,"-I-Sanfer ParqueHuerta");
+                fprintf(pasos,"-I-Sanfer ParqueHuerta\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -417,7 +418,7 @@ void ida_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-I-Sanfer Ardila");
+                fprintf(pasos,"-I-Sanfer Ardila\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -429,7 +430,7 @@ void ida_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-I-Sanfer HornosPunicos");
+                fprintf(pasos,"-I-Sanfer HornosPunicos\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -441,7 +442,7 @@ void ida_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-I-Sanfer BahiaSur");
+                fprintf(pasos,"-I-Sanfer BahiaSur\n");
                 a=0;
                 break;
         }
@@ -454,7 +455,7 @@ void ida_recorrido(){
             scanf("%c",&ubi5);
             fflush(stdin);
             if (ubi5=='S'||ubi5=='s'){
-                fprintf(pasos,"-I-Sanfer Plaza");
+                fprintf(pasos,"-I-Sanfer Plaza\n");
                 a=0;
                 break;
         }
@@ -493,7 +494,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-Cadiz PlazaEspana");
+                fprintf(pasos,"-V-Cadiz PlazaEspana\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -505,7 +506,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Cadiz Hospital");
+                fprintf(pasos,"-V-Cadiz Hospital\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -517,7 +518,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Cadiz Estadio");
+                fprintf(pasos,"-V-Cadiz Estadio\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -529,7 +530,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-V-Cadiz PuertaTierra");
+                fprintf(pasos,"-V-Cadiz PuertaTierra\n");
                 a=0;
                 break;
         }
@@ -550,7 +551,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-Puerto Real Estaciontrenes");
+                fprintf(pasos,"-V-Puerto Real Estaciontrenes\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -562,7 +563,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Puerto Real BK");
+                fprintf(pasos,"-V-Puerto Real BK\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -574,7 +575,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Puerto Real LagunaMarroquia");
+                fprintf(pasos,"-V-Puerto Real LagunaMarroquia\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -586,7 +587,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-V-Puesto Real Casem");
+                fprintf(pasos,"-V-Puesto Real Casem\n");
                 a=0;
                 break;
         }
@@ -607,7 +608,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-Jerez Minotauro");
+                fprintf(pasos,"-V-Jerez Minotauro\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -619,7 +620,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Jerez Roronda");
+                fprintf(pasos,"-V-Jerez Roronda\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -631,7 +632,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Jerez EstacionTrenes");
+                fprintf(pasos,"-V-Jerez EstacionTrenes\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -650,7 +651,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-Chiclana Marquesado");
+                fprintf(pasos,"-V-Chiclana Marquesado\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -662,7 +663,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Chiclana Franceses");
+                fprintf(pasos,"-V-Chiclana Franceses\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -674,7 +675,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Chiclana Novo");
+                fprintf(pasos,"-V-Chiclana Novo\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -686,7 +687,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='N'||ubi4=='n'){
-                fprintf(pasos,"-V-Chiclana Gallos");
+                fprintf(pasos,"-V-Chiclana Gallos\n");
                 a=0;
                 break;
         }
@@ -707,7 +708,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-SanLucar Palmar");
+                fprintf(pasos,"-V-SanLucar Palmar\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -719,7 +720,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-SanLucar Centenario");
+                fprintf(pasos,"-V-SanLucar Centenario\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -731,7 +732,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-SanLucar Rotonda");
+                fprintf(pasos,"-V-SanLucar Rotonda\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -750,7 +751,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1!='s'){
-                fprintf(pasos,"-V-Puerto Estaciontrenes");
+                fprintf(pasos,"-V-Puerto Estaciontrenes\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -762,7 +763,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Puerto Valdelagrana");
+                fprintf(pasos,"-V-Puerto Valdelagrana\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -774,7 +775,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Puerto Sudamerica");
+                fprintf(pasos,"-V-Puerto Sudamerica\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -786,7 +787,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-V-Puerto PlazaToros");
+                fprintf(pasos,"-V-Puerto PlazaToros\n");
                 a=0;
                 break;
         }
@@ -806,7 +807,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi1);
             fflush(stdin);
             if (ubi1=='S'||ubi1=='s'){
-                fprintf(pasos,"-V-Sanfer ParqueHuerta");
+                fprintf(pasos,"-V-Sanfer ParqueHuerta\n");
                 a=0;
         }
         if(ubi1!='N'&&ubi1!='S')
@@ -818,7 +819,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi2);
             fflush(stdin);
             if (ubi2=='S'||ubi2=='s'){
-                fprintf(pasos,"-V-Sanfer Ardila");
+                fprintf(pasos,"-V-Sanfer Ardila\n");
                 a=0;
         }
         if(ubi2!='N'&&ubi2!='S')
@@ -830,7 +831,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi3);
             fflush(stdin);
             if (ubi3=='S'||ubi3=='s'){
-                fprintf(pasos,"-V-Sanfer HornosPunicos");
+                fprintf(pasos,"-V-Sanfer HornosPunicos\n");
                 a=0;
         }
         if(ubi3!='N'&&ubi3!='S')
@@ -842,7 +843,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi4);
             fflush(stdin);
             if (ubi4=='S'||ubi4=='s'){
-                fprintf(pasos,"-V-Sanfer BahiaSur");
+                fprintf(pasos,"-V-Sanfer BahiaSur\n");
                 a=0;
                 break;
         }
@@ -855,7 +856,7 @@ void vuelta_recorrido(){
             scanf("%c",&ubi5);
             fflush(stdin);
             if (ubi5=='S'||ubi5=='s'){
-                fprintf(pasos,"-V-Sanfer Plaza");
+                fprintf(pasos,"-V-Sanfer Plaza\n");
                 a=0;
                 break;
         }
@@ -895,6 +896,7 @@ void selector_camino(){
 
 int selector_i(){
     int selectorc;
+    int id;
     printf("|||||||||||||||||||||||||||||||||||||\n");
     printf("|   Seleccione su lugar de SALIDA:  |\n");
     printf("|              1.CADIZ              |\n");
@@ -925,11 +927,13 @@ int selector_i(){
             system("cls");
     }
     sel(selectorc);
+    mostrarviaje (id);
 return (selectorc);
 }
 
 int selector_v(){
     int selectorc;
+    int id;
     printf("|||||||||||||||||||||||||||||||||||||\n");
     printf("|   Seleccione su lugar de VUELTA:  |\n");
     printf("|              1.CADIZ              |\n");
@@ -959,6 +963,7 @@ int selector_v(){
         system("cls");
     }
     sel(selectorc);
+    mostrarviaje (id);
 return(selectorc);
 }
 
@@ -1197,3 +1202,316 @@ void sel(int selectorc){
             break;
         }
 }
+
+void mostrarviaje (int id){
+    int x;
+    int n;
+    int j;
+    for (x=0; x<n; x+1){
+        for (j=0; j<n; j+1){
+            if (v_pasos[x].id_viaje==id[j]){
+                ciudad=selector_i;
+                switch (ciudad){
+                    case 1:
+                        para=cadiz();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Cadiz PlazaEspaña")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Cadiz Hospital")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Cadiz Estadio")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-I-Cadiz PuertaTierra")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                        break;
+                    case 2:
+                        para=puertoreal();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Puerto Real Estaciontrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Puerto Real BK")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Puerto Real LagunaMarroquia")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-I-Puerto Real Casem")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 3:
+                        para=jerez();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Jerez Minotauro")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Jerez Rotonda")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Jerez EstacionTrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 4:
+                        para=chiclana();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Chiclana Marquesado")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Chiclana Novo")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Chiclana Franceses")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-I-Chiclana Gallos")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 5:
+                        para=sanlucar();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-SanLucar Palmar")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-SanLucar Centenario")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-SanLucar Rotonda")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 6:
+                        para=puerto();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Puerto Estaciontrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Puerto Valdelagrana")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Puerto Sudamerica")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-I-Puerto PlazaToros")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 7:
+                        para=sanfer();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-I-Sanfer ParqueHuerta")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-I-Sanfer Ardila")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-I-Sanfer HornosPunicos")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-I-Sanfer BahiaSur")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 5:
+                                if (strcmp (para,"-I-Sanfer Plaza")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                }
+
+        }
+            if (v_pasos[x].id_viaje[j]==id[j]){
+                ciudad=selector_i;
+                switch (ciudad){
+                    case 1:
+                        para=cadiz();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Cadiz PlazaEspaña")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Cadiz Hospital")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Cadiz Estadio")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-V-Cadiz PuertaTierra")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                        break;
+                    case 2:
+                        para=puertoreal();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Puerto Real Estaciontrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Puerto Real BK")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Puerto Real LagunaMarroquia")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-V-Puerto Real Casem")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 3:
+                        para=jerez();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Jerez Minotauro")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Jerez Rotonda")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Jerez EstacionTrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 4:
+                        para=chiclana();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Chiclana Marquesado")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Chiclana Novo")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Chiclana Franceses")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-V-Chiclana Gallos")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 5:
+                        para=sanlucar();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-SanLucar Palmar")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-SanLucar Centenario")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-SanLucar Rotonda")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 6:
+                        para=puerto();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Puerto Estaciontrenes")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Puerto Valdelagrana")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Puerto Sudamerica")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-V-Puerto PlazaToros")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                    case 7:
+                        para=sanfer();
+                        switch (para){
+                            case 1:
+                                if (strcmp (para,"-V-Sanfer ParqueHuerta")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 2:
+                                if (strcmp (para,"-V-Sanfer Ardila")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 3:
+                                if (strcmp (para,"-V-Sanfer HornosPunicos")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 4:
+                                if (strcmp (para,"-V-Sanfer BahiaSur")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                            case 5:
+                                if (strcmp (para,"-V-Sanfer Plaza")==0)
+                                    imprimir_p(id,parada);
+                                break;
+                        }
+                    break;
+                }
+
+        }
+    }
+}
+}
+
+void imprimir_p(id,parada){
+    printf ("Numero de viaje %d, con parada en %s", id, parada)
+}
+
