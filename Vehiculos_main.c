@@ -10,7 +10,9 @@ void modificar_vehiculo();
 void eliminar_vehiculo();
 
 int comprobar_matricula();
-void lista_vehiculos();
+void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas);
+void editar_plazas(estruct_vehiculos *vehiculos, int pos, int lineas);
+void editar_desc(estruct_vehiculos *vehiculos, int pos, int lineas);
 
 void vaciar_vector (char vector[]){
 
@@ -192,7 +194,7 @@ system("cls");
 
    	}
 
-printf("\n¿Desea continuar en el menú de vehículos? (pulse s para continuar)\n");
+printf("\n¿Desea continuar en el menú de vehículos? (pulse 's' o 'S' para continuar)\n");
 scanf(" %c",&res);
 
 system("cls");
@@ -207,7 +209,7 @@ int main(){
 }
 
 // ##### FUNCIONES PRINCIPALES #####
-void crear_vehiculo(estruct_vehiculos vehiculos){			//Función para crear nuevos vehículos
+void crear_vehiculo(estruct_vehiculos *vehiculos){			//Función para crear nuevos vehículos
 	FILE *vehiculos_file;
 	int encontrada;
 	char v_aux[N];
@@ -277,29 +279,150 @@ fclose(vehiculos_file);
 system("rename Vehiculos.txt Delete.txt");
 system("rename Vehiculos_aux.txt Vehiculos.txt");
 system("del Delete.txt");
+printf("La matrícula ha sido eliminada correctamente.\n\n");
 }
 
-void modificar_vehiculo(){			//Función para modificar campos de vehículos ya existentes
+void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función para modificar campos de vehículos ya existentes
+	FILE *vehiculos_file;
+	char v[N], res_mod, mat[8];
+	int encontrado=0, i=-1, select, pos;
+
+	vehiculos_file=fopen("Vehiculos.txt","r");			//Abrimos el fichero "Vehiculos.txt"
+	if(vehiculos_file == NULL){
+		printf("\n\nERROR: No se ha podido abrir el fichero de texto. Por favor, inténtelo más tarde.");
+		exit(1);
+	}
+	
+	rewind(vehiculos_file);			//Vuelve al principio del fichero de texto
+	
+	printf("Lista de vehículos: ");
+	printf("\n\n");
+	while(!feof(vehiculos_file)){
+		fgets(v,N,vehiculos_file);
+		printf("%s",v);
+	}
+	
+	printf("\n\nIntroduzca la matrícula del vehículo a editar: ");
+	fflush(stdin);
+	fgets(mat,8,stdin);
+	
+	while(encontrado==0&&i<lineas){
+		if(strcmp(mat,vehiculos[++i].Id_mat)==0){
+			encontrado=1;
+			pos=i;
+		}
+	}
+	
+	if(encontrado==0){
+		while(encontrado==0){
+			rewind(vehiculos_file);
+			printf("\n\nERROR: Por favor, introduzca una matrícula válida: ");
+			fgets(mat,8,stdin);
+			i=-1;
+			while(encontrado==0&&i<lineas){
+				if(strcmp(mat,vehiculos[++i].Id_mat)==0){
+					encontrado=1;
+					pos=i;
+				}
+			}
+		}
+	}
+	
+	fclose(vehiculos_file);
+	
+	system("cls");
+	
+	do{
+		printf("|| ########################################### ||\n");
+		printf("|| Seleccione una de las siguientes opciones:  ||\n");
+		printf("||                                             ||\n");
+		printf("|| 1. Editar matrícula del vehículo            ||\n");
+		printf("|| 2. Editar número de plazas del vehículo     ||\n");
+		printf("|| 3. Editar descripción del vehículo          ||\n");
+		printf("|| ########################################### ||\n\n");
+		scanf("%d",&select);
+
+		while(select<1||select>3){
+    		printf("\n\n====================================================================\n");
+   			printf("ERROR: Por favor, seleccione una opción válida (números entre 1 y 3)\n");
+    		printf("====================================================================\n\n");
+    		scanf("%d",&select);
+    	}
+    	
+    	system("cls");
+    	switch(select){
+    		case 1:
+    			editar_matricula(vehiculos,pos,lineas);
+    			break;
+    		case 2:
+    			editar_plazas(vehiculos,pos,lineas);
+    			break;
+    		case 3:
+    			editar_desc(vehiculos,pos,lineas);
+		}
+    
+    printf("Desea continuar en el menú de edición de vehículos? (Pulse 's' o 'S' para continuar)");
+    scanf(" %c",&res_mod);
+	}while(res_mod=='s' || res_mod=='S');
 }
 
 // ##### FUNCIONES SECUNDARIAS #####
 
-int comprobar_matricula(estruct_vehiculos vehiculos){			//Función para comprobar si la matrícula sigue el formato de 4 dígitos y 3 letras
+int comprobar_matricula(char matricula[8]){			//Función para comprobar si la matrícula sigue el formato de 4 dígitos y 3 letras
 	int cont;
-	if(strlen(vehiculos.Id_mat)!=7){
+	if(strlen(matricula)!=7){
         return 0;
 	}
 	for(cont=0;cont<4;cont++){
-		if(vehiculos.Id_mat[cont]<48||vehiculos.Id_mat[cont]>57){			//Se comprueba que las 4 primeras posiciones de Id_mat sean caracteres numéricos mediante comparación por su código ASCII respectivo (48='0'...57='9')
+		if(matricula[cont]<48||matricula[cont]>57){			//Se comprueba que las 4 primeras posiciones de Id_mat sean caracteres numéricos mediante comparación por su código ASCII respectivo (48='0'...57='9')
 			return 0;														//Usaremos el valor '0' como "incorrecta" y el valor '1' como "válida"
 		}
 	}
 
 	for(cont=4;cont<7;cont++){
-		if(vehiculos.Id_mat[cont]<65||vehiculos.Id_mat[cont]>90){			//Hacemos lo mismo que en el bucle anterior, solo que con los códigos de las letras mayúsculas (A hasta Z)
+		if(matricula[cont]<65||matricula[cont]>90){			//Hacemos lo mismo que en el bucle anterior, solo que con los códigos de las letras mayúsculas (A hasta Z)
 			return 0;														//De nuevo, la matrícula sería incorrecta
 		}
 	}
 
 	return 1;			//Si al pasar por los dos bucles, la info es correcta, la matrícula es válida
+}
+
+void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas){
+	char nmat[8];
+	int i=-1, encontrado=0;
+	
+	do{
+		printf("Introduzca la matrícula nueva: ");
+		fflush(stdin);
+		fgets(nmat,8,stdin);
+		
+		if(comprobar_matricula(nmat)==0){
+			printf("\n\nERROR: Por favor, introduzca una matrícula válida: ");
+			system("pause");
+			system("cls");
+		}
+		
+		while(encontrado==0&&i<lineas){
+			if(strcmp(nmat,vehiculos[++i].Id_mat)==0){
+			encontrado==1;
+			i++;
+			}
+		}
+		
+		if(encontrado==1){
+			printf("\n\nERROR: La matrícula introducida ya está siendo utilizada. Por favor, introduzca una matrícula válida: ");
+			system("pause");
+			system("cls");
+		}
+	}while(encontrado==1||comprobar_matricula(nmat)==0);
+	
+	strcpy(vehiculos[pos].Id_mat,nmat);
+	printf("\n\nLa matrícula ha sido modificada.\n\n");
+}
+
+void editar_plazas(estruct_vehiculos *vehiculos, int pos, int lineas){
+}
+
+void editar_desc(estruct_vehiculos *vehiculos, int pos, int lineas){
 }
