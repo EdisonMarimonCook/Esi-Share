@@ -32,8 +32,6 @@ void User_Menu(){
         printf("No es possible abrir user_database.txt");
         exit(1);
     }
-
-    system("cls");
     
     puts("Bienvenid@!");
 
@@ -63,7 +61,8 @@ void User_Menu(){
         case 1: login();
         break;
 
-        case 2: sign_up();
+        case 2: system("cls");
+                sign_up();
         break;
     }
 
@@ -72,8 +71,6 @@ void User_Menu(){
 }
 
 void sign_up(){
-
-    system("cls");
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "a+");
@@ -130,8 +127,8 @@ void sign_up(){
 
     fflush(stdin);
     
-    char user_check[] = "user";
-    char admin_check[] = "admi";
+    char user_check[] = "user";     //esto para que la contrasenya no pueda ser igual
+    char admin_check[] = "admi";    // y esto tambien
     char line[85];
     int i = 0;
 
@@ -148,7 +145,7 @@ void sign_up(){
         char c;
         char str[5];
 
-        while (pos > 0) {
+        while (pos > 0) { //este while para obtener la ultima id que hay
             pos--;
             fseek(fuser, pos, SEEK_SET);
             c = fgetc(fuser);
@@ -166,16 +163,16 @@ void sign_up(){
             }
         }
 
-        int id = atoi(str);
+        int id = atoi(str); //convirtiendo la id obtenida en un entero para sumarle 1
         id++;
 
         fflush(stdin); 
 
         fseek(fuser, 0, SEEK_END);        
-        sprintf(str, "%04d", id);
+        sprintf(str, "%04d", id);   //convirtiendo la id de vuelta en cadena mientras siempre teniendo 4 digitos (rellenada de 0 los que no utiliza)
         long long unsigned int j;
 
-        for(j = 0; j <= strlen(user1.Name_User); j++){
+        for(j = 0; j <= strlen(user1.Name_User); j++){  //todo estos for para quitar cualquier \n que haya
             if(user1.Name_User[j] == '\n'){
                 user1.Name_User[j] = '\0';
             }
@@ -187,6 +184,12 @@ void sign_up(){
             }
         }   
         
+        for(j = 0; j <= strlen(user1.Password); j++){
+            if(user1.Password[j] == '\n'){
+                user1.Password[j] = '\0';
+            }
+        }
+
         system("cls");
 
         printf("Tu nombre completo es: %s\n", user1.Name_User);
@@ -201,13 +204,14 @@ void sign_up(){
         strcat(fullstring, user1.User);
         strcat(fullstring, "-");
         strcat(fullstring, user1.Password);
-        fprintf(fuser, "%s", fullstring);
+        strcat(fullstring, "         ");
+        fprintf(fuser, "%s", fullstring);   //montando el conjunto de datos obtenidos para añadirlos al fichero
 
         fseek(fuser, -1, SEEK_END);
         c = fgetc(fuser);
 
         if(c != '\n'){
-            fseek(fuser, 0, SEEK_END);
+            fseek(fuser, 0, SEEK_END);  //si no hay un \n en el espacio anterior pone al final
             fprintf(fuser, "\n");
         }
 
@@ -241,7 +245,6 @@ void login(){
     char newline[20];
 
     do{
-        system("cls");
 
         puts("Ponga su usuario:");
         scanf("%s", usuario_imput);
@@ -256,7 +259,7 @@ void login(){
 
     fflush(stdin);
 
-    while (fgets(line, sizeof(line), fuser) != NULL) {
+    while (fgets(line, sizeof(line), fuser) != NULL) {  //este while para buscar el usuario en la base de datos, si lo encuentra se pone a 1
         num_guion = 0;
         for(int i = strlen(line); i >= 0; i--){
             c = line[i];
@@ -300,7 +303,7 @@ void login(){
 
         }while(strlen(contraseña_imput) > 8);
 
-        for(int i = strlen(line); i >= 0; i--){
+        for(int i = strlen(line); i >= 0; i--){     //aqui cogiendo solo la parte de la contraseña de la linea de datos
             newline[0] = '\0';
             c = line[i];
             if(c == '-'){    
@@ -313,7 +316,7 @@ void login(){
 
         if (strstr(newline, contraseña_imput) != NULL) {
             
-            for(long long unsigned int i = 0; i <= strlen(line); i++){
+            for(long long unsigned int i = 0; i <= strlen(line); i++){      //este  for para obtener el nombre entero de la linea
                 c = line[i];
                 if(c == '-'){
                     strcpy(nombre_entero, &line[i+1]); 
@@ -333,7 +336,7 @@ void login(){
 
             newline[0] = '\0';
             char check_user[] = "user";
-            while (fgets(line, sizeof(line), fuser) != NULL) {
+            while (fgets(line, sizeof(line), fuser) != NULL) {      //este while para saber si es user o admin
                 num_guion = 0;
                 for(int i = strlen(line); i >= 0; i--){
                     c = line[i];
@@ -355,11 +358,12 @@ void login(){
          
             if(strstr(newline, check_user) != NULL){
 
-                User_Menu_Opciones_Usu(nombre_entero, usuario_imput);
+                system("cls");
+                User_Menu_Opciones_Usu(nombre_entero, usuario_imput);       //entra en esta funcion si es un usuario
 
             }else{
 
-                Admin();
+                Admin();    //entra aqui si es admin
 
             }
 
@@ -375,7 +379,6 @@ void login(){
 
 void User_Menu_Opciones_Usu(char nombre_entero[], char usuario_imput[]){
     int elec;
-    system("cls");
     printf("Bienvenid@ %s\n", nombre_entero);
 
     puts("Que quiere hacer?");
@@ -387,43 +390,45 @@ void User_Menu_Opciones_Usu(char nombre_entero[], char usuario_imput[]){
     scanf("%d", &elec);
     system("cls");
     
-    /*switch(elec){
+    switch(elec){
         case 1: menu_vehiculos();
         break;
 
         case 2: menu_viajes();
         break;
-
-        case 3: Editar_Contrasenya(usuario_imput);
+        
+        case 3: system("cls");
+                Editar_Contrasenya(usuario_imput);
         break;
-    }*/
+    }
     
 }
 
 void Admin(){
-    //system("cls");
+    
+    int elec;
 
     puts("Eres admin");
 
-    //puts("Pulse 1 para editar el rango de un usuario.");
-    puts("Pulse 2 para editar su contraseña. ");
+    puts("Puedes entrar en la base de datos para eliminar cualquier usuario");
 
-    int elec;
+    do{
+        puts("Pulse 1 para editar su contraseña.");
 
-    scanf("%d", &elec);
-    //system("cls");
-    switch(elec){
-        //case 1: Editar_Rango();
-        //break;
 
-        case 2: Editar_Contrasenya();
-        break;
-    }
+        scanf("%d", &elec);
+        system("cls");
+        switch(elec){
+
+            case 1: system("cls");
+                    Editar_Contrasenya();
+            break;
+        }
+    }while(elec != 1);
 
 }
 
 void Editar_Contrasenya(char usuario_imput[]){
-    //system("cls");
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "r+");
@@ -433,25 +438,33 @@ void Editar_Contrasenya(char usuario_imput[]){
     int num_guion;
     char newline[20];
 
-    puts("Ponga la contrasenya nueva:");
+    do{
+        puts("Ponga la contrasenya nueva:");
 
-    scanf("%s", nuev_contr);
+        scanf("%s", nuev_contr);
+
+        system("cls");
+
+        if (strlen(nuev_contr) > 8) {
+            printf("La contraseña debe tener 8 caracteres o menos. Intentalo de nuevo.\n"); 
+        }
+        
+    }while(strlen(nuev_contr) > 8);
 
     long int position;
     char c;
     int check = 0;
     int pos_check;
 
-    while (fgets(line, sizeof(line), fuser) != NULL) {
+    while (fgets(line, sizeof(line), fuser) != NULL) {      //este while para obtener la linea de datos utilizando el usuario
         num_guion = 0;
-        position = ftell(fuser);
+        position = ftell(fuser);    //utilizo la variable posicion para obtener la posicion en el fichero de la contrasenya para reemplazarlo luego
         pos_check = 1;
         for(int i = strlen(line); i >= 0; i--){
             c = line[i];
             if(pos_check == 1){
                 position--;
             }
-
             if(c == '-'){
                 pos_check = 0;
                 num_guion++;
@@ -460,6 +473,7 @@ void Editar_Contrasenya(char usuario_imput[]){
                     position++;
                     for(long long unsigned int z = 0; z <= strlen(newline); z++){
                         c = newline[z];
+                        printf("%c", c);
                         if(c == '-'){
                             newline[z] = '\0';
                             break;
@@ -469,7 +483,7 @@ void Editar_Contrasenya(char usuario_imput[]){
             }
         }
 
-        if (strstr(newline, usuario_imput) != NULL) {
+        if (strstr(newline, usuario_imput) != NULL) {   
             check = 1;
             break;
         }
@@ -486,12 +500,16 @@ void Editar_Contrasenya(char usuario_imput[]){
         fseek(fuser, position, SEEK_SET);
 
         fwrite(nuev_contr, sizeof(char), strlen(nuev_contr), fuser);
+
+        system("cls");
+
         printf("Contrasenya cambiada a %s correctamente.\n", nuev_contr);
+
         login();
             
-    fclose(fuser);
     }
-    
+
+    fclose(fuser);
 }
 
 int getUserId(const char *usuario){
@@ -507,7 +525,7 @@ int getUserId(const char *usuario){
     char c;
     int check = 0;
 
-    while (fgets(line, sizeof(line), fuser) != NULL) {
+    while (fgets(line, sizeof(line), fuser) != NULL) {      //busta y obtiene la linea del usuario en la base de datos
         num_guion = 0;
         for(int i = strlen(line); i >= 0; i--){
             c = line[i];
@@ -533,8 +551,7 @@ int getUserId(const char *usuario){
     }
 
     if(check == 0){
-        int stuff = 235;
-        return stuff;
+        return 0;   //devuelve un 0 si no se ha encontrado el usuario en la base de datos
 
     }else{
 
@@ -543,7 +560,7 @@ int getUserId(const char *usuario){
         user_id[5] = '\0';  
         user_num = atoi(user_id);
 
-        return user_num;
+        return user_num;    //devuelve la id del usuario
 
     }
 
