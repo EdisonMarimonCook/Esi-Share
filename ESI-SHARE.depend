@@ -1,0 +1,137 @@
+# depslib dependency file v1.0
+1681112500 source:c:\users\usuario\downloads\mp\esi-share\cargar_users.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Users.h"
+
+1681763682 c:\users\usuario\downloads\mp\esi-share\users.h
+
+1681112500 source:c:\users\usuario\downloads\mp\esi-share\cargar_vehiculos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Vehiculos_header.h"
+
+1681824371 c:\users\usuario\downloads\mp\esi-share\vehiculos_header.h
+
+1681112500 source:c:\users\usuario\downloads\mp\esi-share\cargar_viajes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"viajes_header.h"
+
+1681824923 c:\users\usuario\downloads\mp\esi-share\viajes_header.h
+
+1681822360 source:c:\users\usuario\downloads\mp\esi-share\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	<time.h>
+	"Users.h"
+	"Vehiculos_header.h"
+	"viajes_header.h"
+
+1681809745 source:c:\users\usuario\downloads\mp\esi-share\pasos.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<locale.h>
+	<string.h>
+	"PASOS.h"
+	"viajes_header.h"
+
+1681112500 c:\users\usuario\downloads\mp\esi-share\pasos.h
+
+1681822225 source:c:\users\usuario\downloads\mp\esi-share\vehiculos.c
+	<stdio.h>
+	<locale.h>
+	<stdlib.h>
+	<string.h>
+	"Vehiculos_header.h"
+
+1681770247 source:c:\users\usuario\downloads\mp\esi-share\viajes_main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"Vehiculos_header.h"
+	"viajes_header.h"
+	"PASOS.h"
+
+1681824832 source:c:\users\usuario\downloads\mp\esi-share\users.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+	"Users.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+	"Users.h"
+	"viajes_header.h"
+	"Vehiculos_header.h"
+
+1681838192 source:c:\users\claudichan\downloads\mp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	<time.h>
+	"Users.h"
+	"Vehiculos_header.h"
+	"viajes_header.h"
+
+1681831076 c:\users\claudichan\downloads\mp\users.h
+
+1681831081 c:\users\claudichan\downloads\mp\vehiculos_header.h
+
+1681831084 c:\users\claudichan\downloads\mp\viajes_header.h
+
+1681839150 source:c:\users\claudichan\downloads\mp\pasos.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<locale.h>
+	<string.h>
+	"PASOS.h"
+	"viajes_header.h"
+
+1681831070 c:\users\claudichan\downloads\mp\pasos.h
+
+1681831168 source:c:\users\claudichan\downloads\mp\users.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+	"Users.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<locale.h>
+	<ctype.h>
+	"Users.h"
+	"viajes_header.h"
+	"Vehiculos_header.h"
+
+1681831077 source:c:\users\claudichan\downloads\mp\vehiculos.c
+	<stdio.h>
+	<locale.h>
+	<stdlib.h>
+	<string.h>
+	"Vehiculos_header.h"
+
+1681842579 source:c:\users\claudichan\downloads\mp\viajes_main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"Vehiculos_header.h"
+	"viajes_header.h"
+	"PASOS.h"
+
