@@ -1,0 +1,10 @@
+1--I-Chiclana Marquesado-I-Chiclana Franceses
+4--I-Chiclana Marquesado-I-Chiclana Franceses-I-Chiclana Novo-I-Chiclana Gallos
+5--I-Cadiz PlazaEspana-I-Cadiz Hospital-I-Cadiz Estadio
+6--I-Sanfer ParqueHuerta-I-Sanfer Ardila
+7--I-Cadiz PlazaEspana-I-Cadiz Hospital-I-Cadiz Estadio
+8--V-Sanfer ParqueHuerta-V-Sanfer Ardila-V-Sanfer HornosPunicos2--I-SanLucar Palmar
+3--I-Sanfer ParqueHuerta-I-Sanfer Ardila-I-Sanfer BahiaSur
+9--I-Puerto Real Estaciontrenes-I-Puerto Real BK-I-Puesto Real Casem
+10--I-Puerto Estaciontrenes-I-Puerto Valdelagrana-I-Puerto Sudamerica-I-Puerto PlazaToros
+11--V-Puerto Estaciontrenes-V-Puerto Valdelagrana

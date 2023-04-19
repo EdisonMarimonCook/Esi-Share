@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Debug" />
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="425" topLine="3" />
+		</Cursor>
+		<Folding>
+			<Collapse line="10" />
+			<Collapse line="22" />
+			<Collapse line="39" />
+			<Collapse line="64" />
+			<Collapse line="91" />
+			<Collapse line="137" />
+			<Collapse line="162" />
+			<Collapse line="189" />
+			<Collapse line="222" />
+			<Collapse line="247" />
+			<Collapse line="274" />
+			<Collapse line="313" />
+		</Folding>
+	</File>
+	<File name="Vehiculos_header.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="viajes_header.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="281" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Vehiculos.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11146" topLine="8" />
+		</Cursor>
+		<Folding>
+			<Collapse line="7" />
+			<Collapse line="61" />
+			<Collapse line="130" />
+			<Collapse line="195" />
+			<Collapse line="288" />
+			<Collapse line="308" />
+			<Collapse line="340" />
+			<Collapse line="374" />
+		</Folding>
+	</File>
+	<File name="pasos.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="338" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="pasos.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="30522" topLine="4" />
+		</Cursor>
+		<Folding>
+			<Collapse line="9" />
+			<Collapse line="21" />
+			<Collapse line="42" />
+			<Collapse line="466" />
+			<Collapse line="876" />
+			<Collapse line="890" />
+			<Collapse line="911" />
+			<Collapse line="931" />
+			<Collapse line="951" />
+		</Folding>
+	</File>
+	<File name="viajes_main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4446" topLine="9" />
+		</Cursor>
+		<Folding>
+			<Collapse line="9" />
+			<Collapse line="16" />
+			<Collapse line="88" />
+			<Collapse line="100" />
+			<Collapse line="161" />
+			<Collapse line="474" />
+			<Collapse line="613" />
+			<Collapse line="661" />
+			<Collapse line="701" />
+			<Collapse line="774" />
+			<Collapse line="841" />
+			<Collapse line="897" />
+			<Collapse line="915" />
+			<Collapse line="939" />
+			<Collapse line="991" />
+			<Collapse line="1041" />
+		</Folding>
+	</File>
+	<File name="Users.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16006" topLine="226" />
+		</Cursor>
+		<Folding>
+			<Collapse line="23" />
+			<Collapse line="67" />
+			<Collapse line="79" />
+			<Collapse line="364" />
+			<Collapse line="396" />
+			<Collapse line="412" />
+			<Collapse line="437" />
+			<Collapse line="515" />
+			<Collapse line="521" />
+			<Collapse line="569" />
+		</Folding>
+	</File>
+</CodeBlocks_layout_file>
