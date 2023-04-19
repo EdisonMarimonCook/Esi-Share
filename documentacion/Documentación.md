@@ -14,11 +14,10 @@
     * [Acceso al sistema](#acceso-al-sistema)
     * [Manual de referencia](#manual-de-referencia)
     * [Guía del operador ](#guía-del-operador)
-3. Documentación del sistema
-   *  Especificación del sistema
-   *  Módulos
-   *  Plan de pruebas
-   *  Documentación del código fuente
+3. [Documentación del sistema](#Documentación-del-sistema)
+   *  [Especificación del sistema](#Especificación-del-sistema)
+   *  [Módulos](#Módulos)
+   *  [Plan de pruebas](#Plan-de-pruebas)
    *  [Referencias](#referencias)
 ---
 ### **Introducción**
@@ -28,9 +27,9 @@ comunidad universitaria de la Escuela Superior de Ingeniería.
 ## **Documentación de Usuario**
 ### **Descripción funcional**
 El propósito del sistema es la facilitación de acceso a coches compartidos para así conseguir un flujo dinámico y seguro para llegar al campus.
-El sistema es muy simple, consta de dos opciones principales <login> y <sign up>.
-   ->login: entrada a la aplicación con un usuario y contraseña.
-   ->sign up: registro de usuario con su nombre completo y contraseña.
+El sistema es muy simple, consta de dos opciones principales *login* y *sign up*.
+   * login: entrada a la aplicación con un usuario y contraseña.
+   * sign up: registro de usuario con su nombre completo y contraseña.
 Posteriormente habrá varias opciones dependiendo de su estatus, que puede variar de usuario normal a superusuario o admin. En el caso de admin la manipulación de información será absoluta. En el caso de usuario se utilizará para usar y crear el servicio de transporte.
 
 ### **Tecnologías**
@@ -94,9 +93,10 @@ Podemos destacar algunos errores comunes y cómo resolverlos:
    1. ¿Cómo me convierto en admin?
       -Para conseguir tal grado de autoridad es necesario que otro administrador modifique su estatus "user" a "admi" en la base de datos.
    2. ¿Por qué no hay ningún viaje disponible?
-      -Esto se debe a un error de lectura del fichero, por lo tanto cierre y vuelva a iniciar la aplicación, si el error persiste contacte con el servicio técnico.
+      -Esto se puede deber a un error de lectura del fichero, por lo que debería cerrar y volver a iniciar la aplicación o porque en efecto no hay ningún viaje que cumpla con los requisitos buscados.
    3. ¿Por qué al borrar el viaje o vehículo posicionado en la última línea del fichero aparece el carácter 'ÿ'?
       -Este error se debe a una variable con contenido basura, por tanto no puede hacer nada a no ser que sea admin. En caso de ser admin solamente debe entrar en el fichero correspondiente y eliminar a mano el carácter.
+   4. Ante cualquier otro error se recomienda resetear la aplicación ya que puede haber fallos en la transferencia de datos a la hora de leer los ficheros.
 
 ### **Guía del operador**
 El administrador tiene acceso a la base de datos para gestionar y/o eliminar: viajes, vehículos y usuarios. Además tiene la opción de modificar su contraseña.
@@ -111,41 +111,50 @@ viajes, gestión de vehículos compartidos, etc.
 • Un perfil de administrador, que realizará tareas de configuración del sistema tales como
 tratamiento de usuarios, trayectos, etc.
 Para conservar toda la información y volverla a utilizar en posteriores ejecuciones del programa, todos los datos de ESI-SHARE estarán almacenados en ficheros. De esta forma, al iniciar el sistema, es necesario que dicha información se vuelque a las estructuras de datos correspondientes en memoria, y al cerrar el programa, se vuelvan a almacenar todos los datos actualizados en los ficheros, realizándose así el funcionamiento de ESI-SHARE en memoria principal. Los ficheros que van contener dicha información son:
-....................................................
-• Usuarios.txt, almacenará la información de los usuarios del sistema con los siguientes campos separados por guiones:
-   o Identificador del usuario (Id_usuario), 4 dígitos.
-   o Nombre completo del usuario (Nomb_usuario), 20 caracteres máximo.
-   o Población (Localidad), con 20 caracteres máximo, para indicar la ubicación desde la que saleel usuario con su vehículo compartido.
-   o Perfil del usuario (Perfil_usuario): «administrador» o «usuario».
-   o Nombre de usuario (Usuario) para acceder al sistema, 5 caracteres.
-   o Contraseña para acceder al sistema (Contraseña), 8 caracteres.
-....................................................
-• Vehículos.txt, almacenará la información de los vehículos que el usuario haya dado de alta en el sistema y que utilizará para compartir en sus viajes. Los campos, separados por guiones, son los que se describen a continuación:
-   o Matrícula del vehículo (Id_mat), 7 caracteres.
-   o Identificador del usuario (Id_usuario) propietario del vehículo, 4 dígitos.
-   o Nº de Plazas (Num_plazas), 1 dígito, para indicar el número de plazas de las que dispone el coche, sin contar la plaza del conductor.
-   o Descripción del vehículo (Desc_veh), 50 caracteres, para indicar los datos del vehículo como marca, modelo, color, etc.
-....................................................
-• Viajes.txt, almacenará la información de los viajes publicados por los usuarios del sistema, con los siguientes campos separados por guiones:
-   o Identificador del viaje (Id_viaje), 6 dígitos.
-   o Matrícula del vehículo (Id_mat) que se comparte, 7 caracteres.
-   o Fecha del viaje (F_inic), formato día/mes/año.
-   o Hora de inicio (H_inic), formato hora:minutos, usando el sistema horario de 24 horas.
-   o Hora de llegada (H_fin), formato hora:minutos, usando el sistema horario de 24 horas.
-   o Plazas libres (Plazas_libre), número de plazas que aún quedan sin ocupar, 1 dígito.
-   o Viaje: Ida o Vuelta. Para simplificar, cada viaje puede ser únicamente de ida o vuelta, pero no ambos.
-   o Importe total del viaje.
-   o Estado del viaje (Estado), para indicar si el viaje está:
-      • Abierto: posibilidad de añadir usuarios al viaje.
-      • Cerrado: no quedan plazas disponibles.
-      • Iniciado: el viaje ya ha comenzado pero permite añadir más usuarios en el caso de haber plazas libre.
-      • Finalizado: el viaje ha finalizado.
-      • Anulado: el viaje no se ha realizado.
-....................................................
-• Pasos.txt, almacenará la información relativa a las poblaciones por las que el usuario, del coche compartido, está dispuesto a pasar durante su viaje, con objeto de recoger a otros usuarios. Contendrá los siguientes campos separados por guiones:
-   o Identificador del viaje (Id_viaje), 6 dígitos (debe coincidir con el Id_viaje de alguno de los viajes del fichero Viajes.txt).
-   o Población de paso (Población), 20 caracteres máximo.
-....................................................
+
+___
+
+* Usuarios.txt, almacenará la información de los usuarios del sistema con los siguientes campos separados por guiones:
+   * Identificador del usuario (Id_usuario), 4 dígitos.
+   * Nombre completo del usuario (Nomb_usuario), 20 caracteres máximo.
+   * Población (Localidad), con 20 caracteres máximo, para indicar la ubicación desde la que saleel usuario con su vehículo compartido.
+   * Perfil del usuario (Perfil_usuario): «administrador» o «usuario».
+   * Nombre de usuario (Usuario) para acceder al sistema, 5 caracteres.
+   * Contraseña para acceder al sistema (Contraseña), 8 caracteres.
+    
+___
+
+* Vehículos.txt, almacenará la información de los vehículos que el usuario haya dado de alta en el sistema y que utilizará para compartir en sus viajes. Los campos, separados por guiones, son los que se describen a continuación:
+   * Matrícula del vehículo (Id_mat), 7 caracteres.
+   * Identificador del usuario (Id_usuario) propietario del vehículo, 4 dígitos.
+   * Nº de Plazas (Num_plazas), 1 dígito, para indicar el número de plazas de las que dispone el coche, sin contar la plaza del conductor.
+   * Descripción del vehículo (Desc_veh), 50 caracteres, para indicar los datos del vehículo como marca, modelo, color, etc.
+   
+___
+
+* Viajes.txt, almacenará la información de los viajes publicados por los usuarios del sistema, con los siguientes campos separados por guiones:
+   * Identificador del viaje (Id_viaje), 6 dígitos.
+   * Matrícula del vehículo (Id_mat) que se comparte, 7 caracteres.
+   * Fecha del viaje (F_inic), formato día/mes/año.
+   * Hora de inicio (H_inic), formato hora:minutos, usando el sistema horario de 24 horas.
+   * Hora de llegada (H_fin), formato hora:minutos, usando el sistema horario de 24 horas.
+   * Plazas libres (Plazas_libre), número de plazas que aún quedan sin ocupar, 1 dígito.
+   * Viaje: Ida o Vuelta. Para simplificar, cada viaje puede ser únicamente de ida o vuelta, pero no ambos.
+   * Importe total del viaje.
+   * Estado del viaje (Estado), para indicar si el viaje está:
+      * Abierto: posibilidad de añadir usuarios al viaje.
+      * Cerrado: no quedan plazas disponibles.
+      * Iniciado: el viaje ya ha comenzado pero permite añadir más usuarios en el caso de haber plazas libre.
+      * Finalizado: el viaje ha finalizado.
+      * Anulado: el viaje no se ha realizado.
+ 
+___
+
+* Pasos.txt, almacenará la información relativa a las poblaciones por las que el usuario, del coche compartido, está dispuesto a pasar durante su viaje, con objeto de recoger a otros usuarios. Contendrá los siguientes campos separados por guiones:
+   * Identificador del viaje (Id_viaje), 6 dígitos (debe coincidir con el Id_viaje de alguno de los viajes del fichero Viajes.txt).
+   * Población de paso (Población), 20 caracteres máximo.
+   
+___
 
 La descomposición del problema es la propuesta. Se ha realizado un "main.c" que se encarga de almacenar los datos de los fichero disponibles en sus estructuras para posteriormente ser modificadas y usadas en sus módulos correspondientes.
 El main.c conecta con un menú de <login> y <sign-up> creado en "Users.c", al entrar en login dependiendo del usuario será direccionado a dos menús distintos que conectan con "Vehiculos_main.c" y "viajes_main.c". 
@@ -153,25 +162,19 @@ A su vez "vehiculos_main.c" conecta con "pasos.c" que funciona como filtro de b�
 
 ### **Módulos**
 #### **Usuarios**
-   El módulo de usuarios tiene una funcionalidad simple, almacenar y crear usuarios. A la hora de crear usuarios se hace mediante la función de <sign-up>. Crea una id nueva generada de manera automática mediante un contador, además añade el nombre completo del usuario, su nombre de usuario y su contraseña, todo con la finalidad de tener una base de datos con usuarios habilitados con el poder de utilizar la aplicación y algunos pocos administradores con poder absoluto sobre la información de todos los módulos.
+   El módulo de usuarios tiene una funcionalidad simple, almacenar y crear usuarios. A la hora de crear usuarios se hace mediante la función de *sign-up*. Crea una id nueva generada de manera automática mediante un contador, además añade el nombre completo del usuario, su nombre de usuario y su contraseña, todo con la finalidad de tener una base de datos con usuarios habilitados con el poder de utilizar la aplicación y algunos pocos administradores con poder absoluto sobre la información de todos los módulos.
    
 #### **Vehículos**
    El módulo de vehículos incluye la gestión completa de los vehículos del sistema, es decir, al entrar en el menú de vehículos:
-   
-   printf("##       ##  ######  ##   ##  ##   #####  ##   ##  ##       ####     ######\n");
-   printf(" ##     ##   ##      ##   ##  ##  ##      ##   ##  ##     ##    ##  ##\n");
-   printf("  ##   ##    ######  #######  ##  ##      ##   ##  ##     ##    ##   ######\n");
-   printf("   ## ##     ##      ##   ##  ##  ##      ##   ##  ##     ##    ##        ##\n");
-   printf("    ###      ######  ##   ##  ##   #####   #####   #####    ####     ######\n\n");
-
-   printf("|| ########################################### ||\n");
-   printf("|| Seleccione una de las siguientes opciones:  ||\n");
-   printf("||                                             ||\n");
-   printf("|| 1. Añadir un vehículo                       ||\n");
-   printf("|| 2. Modificar un vehículo ya existente       ||\n");
-   printf("|| 3. Eliminar un vehículo                     ||\n");
-   printf("|| 4. Salir del menú                           ||\n");
-   printf("|| ########################################### ||\n\n");
+  
+            printf("|| ########################################### ||\n");
+            printf("|| Seleccione una de las siguientes opciones:  ||\n");
+            printf("||                                             ||\n");
+            printf("|| 1. Añadir un vehículo                       ||\n");
+            printf("|| 2. Modificar un vehículo ya existente       ||\n");
+            printf("|| 3. Eliminar un vehículo                     ||\n");
+            printf("|| 4. Salir del menú                           ||\n");
+            printf("|| ########################################### ||\n\n");
    
    1. Seremos direccionados a la función: crear_vehiculo que nos pedirá una matrícula, número de plazas y descripción del vehículo. Estos datos serán escritos en el fichero "Vehiculos_file.txt" después de editar la estructura estruct_vehiculos.
    2. Seremos direccionados a la función: modificar_vehiculo que nos pedirá qué deseamos editar para cambiar la estructura ya mencionada.
@@ -179,21 +182,16 @@ A su vez "vehiculos_main.c" conecta con "pasos.c" que funciona como filtro de b�
    
 #### **Viajes**
    Aumenta la complejidad mediante un menú de mayor tamaño:
-   
-   printf("##       ##   ##      ###       ########  ######   ######\n");
-   printf(" ##     ##    ##     ## ##         ##     ##      ##\n");
-   printf("  ##   ##     ##    ##   ##        ##     ######   ######\n");
-   printf("   ## ##      ##   #########   ##  ##     ##            ##\n");
-   printf("    ###       ##  ##       ##   ####      ######   ######\n");
-   printf("\n ########################");
-   printf("\n |¿Qué desea hacer?     |");
-   printf("\n |                      |");
-   printf("\n |1. Buscar un viaje    |\n 
-              |2. Añadir un viaje    |\n 
-              |3. Eliminar un viaje  |\n 
-              |4. Modificar un viaje |\n 
-              |5. Salir              |\n");
-   printf("  ########################\n\n");
+  
+            printf("\n ########################");
+            printf("\n |¿Qué desea hacer?     |");
+            printf("\n |                      |");
+            printf("\n |1. Buscar un viaje    |\n 
+                       |2. Añadir un viaje    |\n 
+                       |3. Eliminar un viaje  |\n 
+                       |4. Modificar un viaje |\n 
+                       |5. Salir              |\n");
+            printf("  ########################\n\n");
    
    1. Seremos direccionados a la función: buscar_viaje que nos permitirá acceder a "pasos.c" mediante la pregunta de ¿Desea hacer un viaje de IDA o de VUELTA? (con respecto a la ESI). Una vez seleccionado el tipo de viaje usaremos el fichero de pasos como buscador, es decir, mediante otro menú:
    
