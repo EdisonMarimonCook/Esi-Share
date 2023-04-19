@@ -218,13 +218,13 @@ A su vez "vehiculos_main.c" conecta con "pasos.c" que funciona como filtro de b�
 ### **Plan de prueba**
 #### **Prueba de los módulos**
    
-            ![prueba_users](prueba_users.mp4)
-            ![prueba_viajes_pasos](prueba_viajes_pasos.mp4)
+   ![prueba_users](prueba_users.mp4)
+   ![prueba_viajes_pasos](prueba_viajes_pasos.mp4)
    
 ### **Prueba de integración**
             
-            ![diagrama_Yedra](PRUEBADECAJABLANCA.png)
-            ![diagrama_Claudia](Diagrama de flujo (CAMBIAR_IMPORTE).pdf)
+   ![diagrama_Yedra](PRUEBADECAJABLANCA.png)
+   ![diagrama_Claudia](Diagrama de flujo (CAMBIAR_IMPORTE).pdf)
    
 ### **Plan de pruebas de aceptación**
    
