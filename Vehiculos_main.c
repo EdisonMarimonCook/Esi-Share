@@ -182,7 +182,7 @@ system("cls");
 
 	switch(select){
     	case 1:
-   	    	crear_vehiculo(vehiculos);
+   	    	crear_vehiculo(vehiculos, lineas);
    	    	break;
   	    case 2:
    	    	modificar_vehiculo(vehiculos, lineas);
@@ -210,10 +210,10 @@ int main(){
 }
 
 // ##### FUNCIONES PRINCIPALES #####
-void crear_vehiculo(estruct_vehiculos *vehiculos){			//FunciÃ³n para crear nuevos vehÃ­culos
+void crear_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n para crear nuevos vehÃ­culos
 	FILE *vehiculos_file;
-	int encontrado=0,j;
-	char v[N];
+	int encontrado=0,i=-1,plazas;
+	char mat[8],desc[51];
 	
 	vehiculos_file=fopen("Vehiculos.txt","a+");
 	if(vehiculos_file == NULL){
@@ -221,21 +221,66 @@ void crear_vehiculo(estruct_vehiculos *vehiculos){			//FunciÃ³n para crear nue
 		exit(1);
 	}
 
-	printf("Introduzca la matrícula (4 dígitos seguidos de 3 letras mayúsculas)");
-	fflush(stdin);
-	fgets(v,8,stdin);
-	
-	j=0;
-	while(j<1&&encontrado==0){
+	do{
+		printf("Introduzca una matrícula válida: ");
+		fflush(stdin);
+		fgets(mat,8,stdin);
 		
-	}
+		if(comprobar_matricula(mat)==0){
+			printf("\n\nERROR: Por favor, introduzca una matrícula válida: ");
+			system("pause");
+			system("cls");
+		}else{
+			do{
+				if(strcmp(mat,vehiculos[++i].Id_mat)==0){
+					encontrado=1;
+				}
+			}while(i<lineas&&encontrado==0);
+			
+		if(encontrado==1){
+			printf("\n\nERROR: La matrícula introducida ya está siendo utilizada. Por favor, introduzca una matrícula válida");
+			system("pause");
+			system("cls");
+		}
+		}
+	}while(encontrado==1||comprobar_matricula(mat)==0);
 	
+	//ID_USUARIO
+	
+	do{
+		printf("Introduzca un número de plazas (entre 1 y 8): ");
+		scanf("%d-",&plazas);
+		
+		if(plazas<1||plazas>8){
+			printf("\n\nERROR: El número de plazas no es válido. Por favor, introduzca un número de plazas de nuevo");
+			system("pause");
+			system("cls");
+		}
+	}while(plazas<1||plazas>8);
+	
+	
+	do{
+		printf("Introduzca una descripción válida (50 caracteres máximo): ");
+		fflush(stdin);
+		fgets(desc,51,stdin);
+		
+		if(desc == '\0' || strlen(desc)>50){
+			printf("\n\nERROR: La descripción no es válida. Por favor, introduzca una descripción de, como mucho, 50 caracteres");
+			system("pause");
+			system("cls");
+		}
+	}while(desc == '\0' || strlen(desc)>50);
+	
+	fprintf(vehiculos_file,"\n%s",mat);
+	fputc('-',vehiculos_file);
+	fprintf(vehiculos_file,"%d-",plazas);
+	fputs(desc, vehiculos_file);
 }
 
 void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n para eliminar vehÃ­culos ya existentes
 	FILE *vehiculos_file, *vehiculos_aux;
 	char aux='0',v_aux[N],mat[8],mat_aux[8];
-	int i=0,encontrado=0;
+	int i=-1,encontrado=0;
 	
 	vehiculos_file=fopen("Vehiculos.txt","r");			
 	if(vehiculos_file == NULL){
@@ -257,10 +302,9 @@ void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n
 	fgets(mat,8,stdin);
 	
 	do{
-		if(strcmp(mat,vehiculos[i].Id_mat)==0){
+		if(strcmp(mat,vehiculos[++i].Id_mat)==0){
 			encontrado=1;
 		}
-		i++;
 	}while(i<lineas&&encontrado==0);
 	
 	vehiculos_aux=fopen("Vehiculos_aux.txt","w+");
@@ -301,7 +345,7 @@ printf("La matrícula ha sido eliminada correctamente.\n\n");
 void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n para modificar campos de vehÃ­culos ya existentes
 	FILE *vehiculos_file;
 	char v[N], res_mod, mat[8];
-	int encontrado=0, i=0, select, pos;
+	int encontrado=0, i=-1, select, pos;
 
 	vehiculos_file=fopen("Vehiculos.txt","r");			//Abrimos el fichero "Vehiculos.txt"
 	if(vehiculos_file == NULL){
@@ -323,11 +367,10 @@ void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³
 	fgets(mat,8,stdin);
 	
 	do{
-		if(strcmp(mat,vehiculos[i].Id_mat)==0){
-			encontrado=1;
+		if(strcmp(mat,vehiculos[++i].Id_mat)==0){
 			pos=i;
+			encontrado=1;
 		}
-		i++;
 	}while(i<lineas&&encontrado==0);
 	
 	if(encontrado==0){
@@ -337,13 +380,12 @@ void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³
 			fgets(mat,8,stdin);
 			
 			
-			i=0;
+			i=-1;
 			do{
-				if(strcmp(mat,vehiculos[i].Id_mat)==0){
+				if(strcmp(mat,vehiculos[++i].Id_mat)==0){
 					encontrado=1;
 					pos=i;
 				}
-				i++;
 			}while(i<lineas&&encontrado==0);
 		}
 	}
