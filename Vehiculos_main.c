@@ -10,13 +10,14 @@ void modificar_vehiculo();
 void eliminar_vehiculo();
 
 int comprobar_matricula();
+void guardar(estruct_vehiculos *vehiculos, int lineas);
 void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas);
 void editar_plazas(estruct_vehiculos *vehiculos, int pos, int lineas);
 void editar_desc(estruct_vehiculos *vehiculos, int pos, int lineas);
 
 void vaciar_vector (char vector[]){
 
-    //Declaración de datos
+    //DeclaraciÃ³n de datos
     int i;
 
 
@@ -27,7 +28,7 @@ void vaciar_vector (char vector[]){
 }
 void leer(char vector[], FILE *f){
 
-    //Declaración de datos:
+    //DeclaraciÃ³n de datos:
     char aux;
     int i;
 
@@ -43,7 +44,7 @@ void leer(char vector[], FILE *f){
 }
 int contar(){
 
-    //Declaración de datos:
+    //DeclaraciÃ³n de datos:
     FILE *f;
     int lineas=0;
     char vector[N];
@@ -57,7 +58,7 @@ int contar(){
     }
 
 
-    //Contar líneas:
+    //Contar lÃ­neas:
     while(!feof(f)){
         fgets(vector,N,f);
         lineas++;
@@ -68,7 +69,7 @@ int contar(){
 }
 void reserva_memoria(estruct_vehiculos **v, int lineas){
 
-    //Declaración de datos:
+    //DeclaraciÃ³n de datos:
     FILE *f;
 
 
@@ -84,7 +85,7 @@ void reserva_memoria(estruct_vehiculos **v, int lineas){
     rewind(f);
 
 
-    //Crear vector dinámico dependiente del número de líneas de estruct_viajes:
+    //Crear vector dinÃ¡mico dependiente del nÃºmero de lÃ­neas de estruct_viajes:
     *v=(estruct_vehiculos*)calloc(lineas,sizeof(estruct_vehiculos));
     if(*v==NULL){
         printf("No se ha podido reservar memoria\n");
@@ -95,7 +96,7 @@ void reserva_memoria(estruct_vehiculos **v, int lineas){
 }
 void subir_a_fichero_vehiculos(estruct_vehiculos *v){
 
-    //Definición de datos:
+    //DefiniciÃ³n de datos:
     FILE *f;
     int j;
     char vector[N], aux;
@@ -128,7 +129,7 @@ void subir_a_fichero_vehiculos(estruct_vehiculos *v){
 }
 void cargar_vehiculos(){
 
-    //Declaración de datos:
+    //DeclaraciÃ³n de datos:
     int lineas;
     estruct_vehiculos *vehiculos;
 
@@ -209,14 +210,29 @@ int main(){
 }
 
 // ##### FUNCIONES PRINCIPALES #####
-void crear_vehiculo(estruct_vehiculos *vehiculos){			//Función para crear nuevos vehículos
+void crear_vehiculo(estruct_vehiculos *vehiculos){			//FunciÃ³n para crear nuevos vehÃ­culos
 	FILE *vehiculos_file;
-	int encontrada;
-	char v_aux[N];
+	int encontrado=0,j;
+	char v[N];
+	
+	vehiculos_file=fopen("Vehiculos.txt","a+");
+	if(vehiculos_file == NULL){
+		printf("\n\nERROR: No se ha podido abrir el fichero. Por favor, inténtelo de nuevo.");
+		exit(1);
+	}
+
+	printf("Introduzca la matrícula (4 dígitos seguidos de 3 letras mayúsculas)");
+	fflush(stdin);
+	fgets(v,8,stdin);
+	
+	j=0;
+	while(j<1&&encontrado==0){
+		
+	}
 	
 }
 
-void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función para eliminar vehículos ya existentes
+void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n para eliminar vehÃ­culos ya existentes
 	FILE *vehiculos_file, *vehiculos_aux;
 	char aux='0',v_aux[N],mat[8],mat_aux[8];
 	int i=0,encontrado=0;
@@ -236,7 +252,7 @@ void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función p
 		printf("%s",v_aux);
 	}
 		
-	printf("\n\nIntroduzca la matrícula del vehículo a borrar: ");
+	printf("\n\nIntroduzca la matrícula del vehículo a eliminar: ");
 	fflush(stdin);
 	fgets(mat,8,stdin);
 	
@@ -249,7 +265,7 @@ void eliminar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función p
 	
 	vehiculos_aux=fopen("Vehiculos_aux.txt","w+");
 	if(vehiculos_aux == NULL){
-		printf("\n\nERROR: No se ha podido abrir el fichero de texto. Por favor, inténtelo más tarde.");
+		printf("\n\nERROR: No se ha podido abrir el fichero de texto. Por favor, intÃ©ntelo mÃ¡s tarde.");
 		exit(1);
 	}
 	
@@ -282,10 +298,10 @@ system("del Delete.txt");
 printf("La matrícula ha sido eliminada correctamente.\n\n");
 }
 
-void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función para modificar campos de vehículos ya existentes
+void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//FunciÃ³n para modificar campos de vehÃ­culos ya existentes
 	FILE *vehiculos_file;
 	char v[N], res_mod, mat[8];
-	int encontrado=0, i=-1, select, pos;
+	int encontrado=0, i=0, select, pos;
 
 	vehiculos_file=fopen("Vehiculos.txt","r");			//Abrimos el fichero "Vehiculos.txt"
 	if(vehiculos_file == NULL){
@@ -306,29 +322,35 @@ void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función 
 	fflush(stdin);
 	fgets(mat,8,stdin);
 	
-	while(encontrado==0&&i<lineas){
-		if(strcmp(mat,vehiculos[++i].Id_mat)==0){
+	do{
+		if(strcmp(mat,vehiculos[i].Id_mat)==0){
 			encontrado=1;
 			pos=i;
 		}
-	}
+		i++;
+	}while(i<lineas&&encontrado==0);
 	
 	if(encontrado==0){
 		while(encontrado==0){
 			rewind(vehiculos_file);
 			printf("\n\nERROR: Por favor, introduzca una matrícula válida: ");
 			fgets(mat,8,stdin);
-			i=-1;
-			while(encontrado==0&&i<lineas){
-				if(strcmp(mat,vehiculos[++i].Id_mat)==0){
+			
+			
+			i=0;
+			do{
+				if(strcmp(mat,vehiculos[i].Id_mat)==0){
 					encontrado=1;
 					pos=i;
 				}
-			}
+				i++;
+			}while(i<lineas&&encontrado==0);
 		}
 	}
 	
 	fclose(vehiculos_file);
+	
+	system("pause");
 	
 	system("cls");
 	
@@ -361,38 +383,74 @@ void modificar_vehiculo(estruct_vehiculos *vehiculos, int lineas){			//Función 
     			editar_desc(vehiculos,pos,lineas);
 		}
     
+    guardar(vehiculos,lineas);
+    
     printf("Desea continuar en el menú de edición de vehículos? (Pulse 's' o 'S' para continuar)");
     scanf(" %c",&res_mod);
+    system("cls");
 	}while(res_mod=='s' || res_mod=='S');
 }
 
 // ##### FUNCIONES SECUNDARIAS #####
 
-int comprobar_matricula(char matricula[8]){			//Función para comprobar si la matrícula sigue el formato de 4 dígitos y 3 letras
+int comprobar_matricula(char matricula[8]){			//Función para comprobar si la matrícula sigue el formato de 4 dÃíitos y 3 letras
 	int cont;
 	if(strlen(matricula)!=7){
         return 0;
 	}
 	for(cont=0;cont<4;cont++){
-		if(matricula[cont]<48||matricula[cont]>57){			//Se comprueba que las 4 primeras posiciones de Id_mat sean caracteres numéricos mediante comparación por su código ASCII respectivo (48='0'...57='9')
-			return 0;														//Usaremos el valor '0' como "incorrecta" y el valor '1' como "válida"
+		if(matricula[cont]<48||matricula[cont]>57){			//Se comprueba que las 4 primeras posiciones de Id_mat sean caracteres numÃ©ricos mediante comparaciÃ³n por su cÃ³digo ASCII respectivo (48='0'...57='9')
+			return 0;														//Usaremos el valor '0' como "incorrecta" y el valor '1' como "vÃ¡lida"
 		}
 	}
 
 	for(cont=4;cont<7;cont++){
-		if(matricula[cont]<65||matricula[cont]>90){			//Hacemos lo mismo que en el bucle anterior, solo que con los códigos de las letras mayúsculas (A hasta Z)
-			return 0;														//De nuevo, la matrícula sería incorrecta
+		if(matricula[cont]<65||matricula[cont]>90){			//Hacemos lo mismo que en el bucle anterior, solo que con los cÃ³digos de las letras mayÃºsculas (A hasta Z)
+			return 0;														//De nuevo, la matrÃ­cula serÃ­a incorrecta
 		}
 	}
 
-	return 1;			//Si al pasar por los dos bucles, la info es correcta, la matrícula es válida
+	return 1;			//Si al pasar por los dos bucles, la info es correcta, la matrÃ­cula es vÃ¡lida
+}
+
+void guardar(estruct_vehiculos *vehiculos, int lineas){
+	int cont;
+	
+	FILE *vehiculos_file;
+    vehiculos_file=fopen("Vehiculos.txt","w+");
+    if(vehiculos_file == NULL){
+    	printf("\n\nERROR: No se ha podido abrir el fichero. Por favor, inténtelo más tarde.");
+    	exit(1);
+	}
+	
+	cont=0;
+	while(cont<(lineas-1)){
+		fputs(vehiculos[cont].Id_mat,vehiculos_file);
+		fputc('-',vehiculos_file);
+		
+		fprintf(vehiculos_file,"%d-",vehiculos[cont].Num_plazas);
+		
+		fputs(vehiculos[cont].Desc_veh,vehiculos_file);
+		fputc('\n',vehiculos_file);
+		cont++;
+	}
+    
+    fputs(vehiculos[cont].Id_mat,vehiculos_file);
+	fputc('-',vehiculos_file);
+		
+	fprintf(vehiculos_file,"%d-",vehiculos[cont].Num_plazas);
+		
+	fputs(vehiculos[cont].Desc_veh,vehiculos_file);
+    
+    fclose(vehiculos_file);
 }
 
 void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas){
 	char nmat[8];
-	int i=-1, encontrado=0;
+	int i=-1, encontrado;
 	
 	do{
+		encontrado=0;
 		printf("Introduzca la matrícula nueva: ");
 		fflush(stdin);
 		fgets(nmat,8,stdin);
@@ -401,19 +459,19 @@ void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas){
 			printf("\n\nERROR: Por favor, introduzca una matrícula válida: ");
 			system("pause");
 			system("cls");
-		}
+		}else{
 		
-		while(encontrado==0&&i<lineas){
+		do{
 			if(strcmp(nmat,vehiculos[++i].Id_mat)==0){
-			encontrado==1;
-			i++;
+			encontrado=1;
 			}
-		}
+		}while(encontrado==0&&i<lineas);
 		
 		if(encontrado==1){
 			printf("\n\nERROR: La matrícula introducida ya está siendo utilizada. Por favor, introduzca una matrícula válida: ");
 			system("pause");
 			system("cls");
+		}
 		}
 	}while(encontrado==1||comprobar_matricula(nmat)==0);
 	
@@ -422,6 +480,12 @@ void editar_matricula(estruct_vehiculos *vehiculos, int pos, int lineas){
 }
 
 void editar_plazas(estruct_vehiculos *vehiculos, int pos, int lineas){
+	int nplazas, encontrado,i;
+	
+	printf("Introduzca un nuevo número de plazas (Entre 0 y 8)");
+	scanf("%d",&nplazas);
+	
+	
 }
 
 void editar_desc(estruct_vehiculos *vehiculos, int pos, int lineas){
