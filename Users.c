@@ -3,15 +3,14 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
-#include "Users.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
 #include "Users.h"
-#include "viajes_header.h"
 #include "Vehiculos_header.h"
+#include "viajes_header.h"
 
 int getUserId();
 void User_Menu_Opciones_Usu();
@@ -78,7 +77,7 @@ void User_Menu(int lineas, estruct_viajes *viaj, estruct_vehiculos *vec, int l){
     fclose(fuser);
 }
 
-void sign_up(){
+void sign_up(){  //ERROR SI SE INTRODUCE CONTRASEÑA INCORRECTA
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "a+");
@@ -423,7 +422,7 @@ void User_Menu_Opciones_Usu(char nombre_entero[], char usuario_imput[], int line
         }
 
         switch(elec){
-            case 1: menu_vehiculos();
+            case 1: menu_vehiculos(vec, l);
             break;
             case 2: menu_viajes(lineas, viaj, vec, l);
             break;
@@ -469,7 +468,7 @@ void Admin(char usuario_imput[], int lineas, estruct_viajes *viaj, estruct_vehic
             case 3: eliminar_viaje(viaj,lineas);
             break;
 
-            case 4: eliminar_vehiculo();
+            case 4: eliminar_vehiculo(vec,l);
             break;
         }
 
@@ -486,7 +485,7 @@ void Admin(char usuario_imput[], int lineas, estruct_viajes *viaj, estruct_vehic
     }
 }
 
-void Editar_Contrasenya(char usuario_imput[]){  //No funciona
+void Editar_Contrasenya(char usuario_imput[]){  //NO ACEPTA CONTRASEÑA MÁS PEQUEÑA
 
     FILE *fuser;
     fuser = fopen("user_database.txt", "r+");
@@ -562,6 +561,7 @@ void Editar_Contrasenya(char usuario_imput[]){  //No funciona
 
         printf("Contraseña cambiada a %s correctamente.\n", nuev_contr);
         system("pause");
+        system("cls");
 
     }
 
