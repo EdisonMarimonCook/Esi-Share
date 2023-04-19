@@ -220,6 +220,7 @@ A su vez "vehiculos_main.c" conecta con "pasos.c" que funciona como filtro de b√
    
    ![prueba_users](prueba_users.mp4)
    ![prueba_viajes_pasos](prueba_viajes_pasos.mp4)
+   ![prueba_vehiculos](prueba_vehiculos.mp4)
    
 ### **Prueba de integraci√≥n**
             
