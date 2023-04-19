@@ -1,6 +1,0 @@
-1--I-Chiclana Marquesado-I-Chiclana Franceses
-2--V-Cadiz PlazaEspana-V-Cadiz Estadio-V-Cadiz PuertaTierra
-3--I-Jerez Minotauro-I-Jerez Roronda-I-Jerez EstacionTrenes
-4--I-Chiclana Marquesado-I-Chiclana Franceses-I-Chiclana Novo-I-Chiclana Gallos
-5--I-Cadiz PlazaEspana-I-Cadiz Hospital-I-Cadiz Estadio
-6--I-Sanfer ParqueHuerta-I-Sanfer Ardila
